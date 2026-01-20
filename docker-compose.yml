@@ -12,21 +12,20 @@ services:
         ports:
             - "9000:9000"
         depends_on:
-            - db
+            - postgres
 
-    db:
-        image: mysql:8.0
-        container_name: mysql
+    postgres:
+        image: postgres:15
+        container_name: postgres2
         restart: unless-stopped
         environment:
-            MYSQL_DATABASE: laravel
-            MYSQL_ROOT_PASSWORD: root
-            MYSQL_USER: laravel
-            MYSQL_PASSWORD: laravel
+            POSTGRES_DB: laravel
+            POSTGRES_USER: laravel
+            POSTGRES_PASSWORD: laravel
         ports:
-            - "3306:3306"
+            - "5432:5432"
         volumes:
-            - dbdata:/var/lib/mysql
+            - pgdata:/var/lib/postgresql/data
 
     nginx:
         image: nginx:alpine
@@ -41,4 +40,4 @@ services:
             - app
 
 volumes:
-    dbdata:
+    pgdata:
