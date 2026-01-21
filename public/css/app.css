@@ -236,6 +236,9 @@ body {
 .has-submenu.open .submenu {
     display: block;
 }
+.mobile-menu {
+    display: none;
+}
 
 
 /* Блокировка прокрутки при открытом меню */
@@ -295,7 +298,6 @@ body {
     .mobile-menu {
         position: fixed;
         inset: 0; /* top:0; right:0; bottom:0; left:0 */
-        display: flex;
         flex-direction: column;
         align-items: center; /* center menu items horizontally */
         justify-content: flex-start;
@@ -402,6 +404,7 @@ body {
 
 /* Подменю */
 .submenu {
+    position: absolute;
     max-height: 0;
     overflow: hidden;
     background: #1a1a1a;
@@ -1172,70 +1175,33 @@ h2 {
     opacity: 0;
     transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
-.mobile-menu {
-    display: none;
-    width: 100%;
-    background: #111;
-}
 
-.mobile-menu__list {
-    list-style: none;
-}
-
-.mobile-menu__item {
-    border-bottom: 1px solid #222;
-}
-
-.mobile-menu a,
-.submenu-toggle {
-    width: 100%;
-    padding: 16px;
-    background: none;
-    border: none;
-    color: #fff;
-    text-align: left;
-    font-size: 16px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-}
-
-/* Подменю */
-.submenu {
-    max-height: 0;
-    overflow: hidden;
-    background: #1a1a1a;
-    transition: max-height 0.3s ease;
-}
-
-/* Пункты подменю */
-.submenu li a {
-    padding: 14px 32px;
+/* Ensure dropdown trigger matches link sizing so it doesn't shift on click */
+.menu__item.has-submenu > .dropdown-toggle {
     display: block;
-    color: #ccc;
+    padding: 15px 20px; /* same as .menu__item > a */
+    background: transparent !important;
+    border: none !important;
+    color: #fff !important;
+    font-size: 16px;
+    line-height: 1;
+    text-align: left;
+    cursor: pointer;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    appearance: none;
+    transform: none !important; /* override any scale on hover/active */
 }
 
-.submenu {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
+.menu__item.has-submenu > .dropdown-toggle:hover,
+.menu__item.has-submenu > .dropdown-toggle:active,
+.menu__item.has-submenu > .dropdown-toggle:focus {
+    background: transparent !important;
+    transform: none !important;
+    outline: none !important;
+    box-shadow: none !important;
 }
 
-.has-submenu.open .submenu {
-    max-height: 300px;
-}
-
-/* Открытое состояние */
-.has-submenu.open .submenu {
-    max-height: 500px; /* достаточно большое значение */
-}
-
-/* Поворот стрелки */
-.arrow {
-    transition: transform 0.3s ease;
-}
-
-.has-submenu.open .arrow {
-    transform: rotate(180deg);
+.menu__item.has-submenu > .dropdown-toggle:focus {
+    outline: none; /* prevent focus outline shifting */
 }

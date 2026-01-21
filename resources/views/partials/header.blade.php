@@ -12,7 +12,7 @@
                 <nav class="menu">
                     <ul class="menu__list">
                         <li class="menu__item has-submenu">
-                            <a href="#" class="submenu-toggle">Услуги</a>
+                            <button type="button" class="dropdown-toggle" aria-expanded="false">Услуги <span class="arrow"></span></button>
                             <ul class="submenu">
                                 @foreach ($services as $service)
                                     <li>
@@ -78,39 +78,49 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
-
-        dropdownToggles.forEach(toggle => {
-            toggle.addEventListener('click', function (event) {
-                event.stopPropagation();
-                const dropdown = this.closest('.dropdown');
-                dropdown.classList.toggle('active');
+        // Desktop toggles (main menu)
+        document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+            toggle.addEventListener('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                const li = this.closest('.has-submenu');
+                if (!li) return; // safety
+                const isOpen = li.classList.toggle('open');
+                this.setAttribute('aria-expanded', String(!!isOpen));
             });
         });
 
-        document.addEventListener('click', function () {
-            document.querySelectorAll('.dropdown').forEach(dropdown => {
-                dropdown.classList.remove('active');
+        // Mobile toggles (submenu inside mobile menu)
+        document.querySelectorAll('.submenu-toggle').forEach(toggle => {
+            toggle.addEventListener('click', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                const li = this.closest('.has-submenu');
+                if (!li) return;
+                const isOpen = li.classList.toggle('open');
+                this.setAttribute('aria-expanded', String(!!isOpen));
             });
         });
+
+        // Click outside closes any open submenu
+        document.addEventListener('click', function (e) {
+            if (e.target.closest('.has-submenu')) return;
+            document.querySelectorAll('.has-submenu.open').forEach(li => {
+                li.classList.remove('open');
+                const btn = li.querySelector('.dropdown-toggle, .submenu-toggle');
+                if (btn) btn.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        // ESC closes
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.has-submenu.open').forEach(li => {
+                    li.classList.remove('open');
+                    const btn = li.querySelector('.dropdown-toggle, .submenu-toggle');
+                    if (btn) btn.setAttribute('aria-expanded', 'false');
+                });
+            }
+        });
     });
-
-    document.addEventListener('click', function (e) {
-        const toggle = e.target.closest('.submenu-toggle');
-        if (!toggle) return;
-
-        e.preventDefault(); // ⬅️ критично
-
-        const item = toggle.closest('.has-submenu');
-
-        console.log(item.classList)
-        if (item.classList.contains('open')) {
-            item.classList.remove('open')
-        } else {
-            console.log('nooo')
-            item.classList.add('open')
-        }
-    });
-
-
 </script>
