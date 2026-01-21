@@ -3,14 +3,14 @@
 @section('title', $service->name)
 
 @section('content')
-    <section class="services-section">
+    <section class="services-section service-page">
         <div class="container">
+            <h1>{{ $service->name }} в Кирове</h1>
             <div class="service-card">
                 <div class="service-image">
                     <img src="{{ asset('/images/car.jpg') }}" alt="{{ $service->name }}">
                 </div>
 
-                <h1>{{ $service->name }}</h1>
                 <div class="service-meta">
                     <div class="price">Цена: <strong>{{ number_format($service->price, 2, ',', ' ') }} ₽</strong></div>
                     <a href="tel:+71234567890" class="btn primary">Записаться</a>

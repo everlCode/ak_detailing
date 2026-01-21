@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css">
 @endpush
 
-<div class="services-section">
+<section class="services-section">
     <div class="container">
         <h2>Наши услуги</h2>
 
@@ -59,7 +59,7 @@
             <div class="slider-dots swiper-pagination" aria-hidden="false"></div>
         </div>
     </div>
-</div>
+</section>
 
 @push('scripts')
 <!-- Swiper JS (CDN) + инициализация нашего скрипта -->

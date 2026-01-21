@@ -27,6 +27,14 @@
 
 @endsection
 
+@section('services-dropdown')
+    <ul class="dropdown-menu">
+        @foreach ($services as $service)
+            <li><a href="{{ route('services.show', ['alias' => $service->alias]) }}">{{ $service->name }}</a></li>
+        @endforeach
+    </ul>
+@endsection
+
 @push('scripts')
 <!-- Swiper JS (CDN) + инициализация нашего скрипта -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
