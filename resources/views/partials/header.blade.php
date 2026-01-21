@@ -45,29 +45,6 @@
                     </div>
                 </nav>
 
-
-                <script>
-                    document.addEventListener('DOMContentLoaded', () => {
-                        const items = document.querySelectorAll('.has-submenu');
-
-                        items.forEach(item => {
-                            const toggle = item.querySelector('.submenu-toggle');
-
-                            // Клик — открыть / закрыть
-                            toggle.addEventListener('click', (e) => {
-                                e.preventDefault();
-                                item.classList.toggle('open');
-                            });
-
-                            // Увели курсор — закрыть
-                            item.addEventListener('mouseleave', () => {
-                                item.classList.remove('open');
-                            });
-                        });
-                    });
-
-                </script>
-
                 <nav class="mobile-menu">
                     <ul class="mobile-menu__list">
                         <li class="mobile-menu__item">
@@ -126,9 +103,11 @@
 
         const item = toggle.closest('.has-submenu');
 
-        if (item.classList.has('open')) {
+        console.log(item.classList)
+        if (item.classList.contains('open')) {
             item.classList.remove('open')
         } else {
+            console.log('nooo')
             item.classList.add('open')
         }
     });

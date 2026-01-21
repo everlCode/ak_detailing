@@ -305,6 +305,13 @@ body {
         opacity: 0;
         pointer-events: none;
         transition: transform 0.35s cubic-bezier(.2, .9, .3, 1), opacity 0.25s ease;
+        width: 100%;
+        background: #111;
+        display: none;
+    }
+
+    .mobile-menu.active {
+        display: block;
     }
 
     .mobile-menu.active {
@@ -365,10 +372,7 @@ body {
 
 }
 
-.mobile-menu {
-    width: 100%;
-    background: #111;
-}
+
 
 .mobile-menu__list {
     list-style: none;
@@ -1169,6 +1173,7 @@ h2 {
     transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 .mobile-menu {
+    display: none;
     width: 100%;
     background: #111;
 }
