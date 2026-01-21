@@ -403,8 +403,11 @@ body {
 }
 
 /* Подменю */
-.submenu {
+.menu__list .submenu {
     position: absolute;
+}
+
+.submenu {
     max-height: 0;
     overflow: hidden;
     background: #1a1a1a;
@@ -1205,3 +1208,36 @@ h2 {
 .menu__item.has-submenu > .dropdown-toggle:focus {
     outline: none; /* prevent focus outline shifting */
 }
+
+/* Arrow indicator for submenu: use simple glyphs for consistent look */
+.menu__item.has-submenu > .dropdown-toggle .arrow {
+    display: inline-block;
+    margin-left: 8px;
+    color: #fff;
+    font-size: 14px;
+    line-height: 1;
+    transition: transform 0.22s ease, color 0.22s ease;
+}
+
+/* Default: downwards small triangle */
+.menu__item.has-submenu > .dropdown-toggle .arrow::before {
+    content: "\25BE"; /* ▾ */
+    display: inline-block;
+}
+
+/* When open, show upwards triangle and slightly rotate */
+.menu__item.has-submenu.open > .dropdown-toggle .arrow::before {
+    content: "\25B4"; /* ▴ */
+}
+
+/* Mobile submenu toggle uses explicit ▼/▴ in markup; normalize it */
+.mobile-menu__item.has-submenu > .submenu-toggle .arrow {
+    margin-left: 8px;
+    color: #fff;
+    font-size: 14px;
+}
+
+.mobile-menu__item.has-submenu.open > .submenu-toggle .arrow {
+    content: "\25B4"; /* fallback for some user agents */
+}
+

@@ -79,16 +79,31 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         // Desktop toggles (main menu)
-        document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+        document.querySelectorAll('.has-submenu').forEach(li => {
+            const toggle = li.querySelector('.dropdown-toggle');
+            if (!toggle) return;
+
+            // CLICK (мобилка)
             toggle.addEventListener('click', function (e) {
                 e.preventDefault();
                 e.stopPropagation();
-                const li = this.closest('.has-submenu');
-                if (!li) return; // safety
+
                 const isOpen = li.classList.toggle('open');
-                this.setAttribute('aria-expanded', String(!!isOpen));
+                this.setAttribute('aria-expanded', String(isOpen));
+            });
+
+            // HOVER (десктоп)
+            li.addEventListener('mouseenter', () => {
+                li.classList.add('open');
+                toggle.setAttribute('aria-expanded', 'true');
+            });
+
+            li.addEventListener('mouseleave', () => {
+                li.classList.remove('open');
+                toggle.setAttribute('aria-expanded', 'false');
             });
         });
+
 
         // Mobile toggles (submenu inside mobile menu)
         document.querySelectorAll('.submenu-toggle').forEach(toggle => {
@@ -99,16 +114,6 @@
                 if (!li) return;
                 const isOpen = li.classList.toggle('open');
                 this.setAttribute('aria-expanded', String(!!isOpen));
-            });
-        });
-
-        // Click outside closes any open submenu
-        document.addEventListener('click', function (e) {
-            if (e.target.closest('.has-submenu')) return;
-            document.querySelectorAll('.has-submenu.open').forEach(li => {
-                li.classList.remove('open');
-                const btn = li.querySelector('.dropdown-toggle, .submenu-toggle');
-                if (btn) btn.setAttribute('aria-expanded', 'false');
             });
         });
 
