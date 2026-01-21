@@ -5,9 +5,6 @@
                 <a itemprop="url" href="/"><img itemprop="logo" src="/images/logo.png" title="Логотип" alt="Логотип"></a>
             </div>
 
-
-
-
             <div class="nav_bar">
                 <nav class="menu">
                     <ul class="menu__list">
@@ -46,6 +43,7 @@
                 </nav>
 
                 <nav class="mobile-menu">
+                    <button class="mobile-menu__close" aria-label="Закрыть меню">✕</button>
                     <ul class="mobile-menu__list">
                         <li class="mobile-menu__item">
                             <a href="#">Главная</a>

@@ -297,23 +297,19 @@ body {
     /* Fullscreen mobile overlay */
     .mobile-menu {
         position: fixed;
-        inset: 0; /* top:0; right:0; bottom:0; left:0 */
+        inset: 0;
+        display: flex;
         flex-direction: column;
         align-items: center; /* center menu items horizontally */
         justify-content: flex-start;
         padding: 24px 20px;
         background: rgba(0, 0, 0, 0.95);
-        transform: translateY(-6%);
+        transform: translateY(-100%);
         opacity: 0;
         pointer-events: none;
-        transition: transform 0.35s cubic-bezier(.2, .9, .3, 1), opacity 0.25s ease;
+        transition: transform 0.8s cubic-bezier(.2, .9, .3, 1), opacity 0.28s ease;
         width: 100%;
-        background: #111;
-        display: none;
-    }
-
-    .mobile-menu.active {
-        display: block;
+        z-index: 2000; /* above header */
     }
 
     .mobile-menu.active {
@@ -414,6 +410,10 @@ body {
     transition: max-height 0.3s ease;
 }
 
+.mobile-menu__item .submenu {
+    background: none;
+}
+
 /* Пункты подменю */
 .submenu li a {
     padding: 14px 32px;
@@ -447,13 +447,16 @@ body {
 /* Hero Section */
 .hero {
     position: relative;
-    min-height: 80vh;
+    height: 100vh; /* full viewport height */
+    box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     color: #fff;
+    /* Keep background covering whole hero */
     background: linear-gradient(180deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.65)), url('/images/car.jpg') center / cover no-repeat;
+    padding-top: 100px; /* account for fixed header height */
     margin: 0;
 }
 
