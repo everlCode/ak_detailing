@@ -230,6 +230,7 @@ body {
 
 .submenu li a:hover {
     background: #444;
+    color: #fff;
 }
 
 /* Активное состояние */
@@ -408,6 +409,7 @@ body {
     overflow: hidden;
     background: #1a1a1a;
     transition: max-height 0.3s ease;
+    padding: 0;
 }
 
 .mobile-menu__item .submenu {
@@ -1150,6 +1152,9 @@ h2 {
     transition: color 0.3s ease-in-out; /* Smooth color change */
     color: #fff;
 }
+.dropdown-toggle::after {
+    display: none;
+}
 
 .dropdown .arrow {
     margin-left: 5px;
@@ -1244,3 +1249,162 @@ h2 {
     content: "\25B4"; /* fallback for some user agents */
 }
 
+/* Стили для кнопок "Записаться" (триггер модалки) */
+button[data-bs-target="#bookingModal"],
+a[data-bs-target="#bookingModal"],
+button[data-bs-toggle="modal"][data-bs-target="#bookingModal"],
+a[data-bs-toggle="modal"][data-bs-target="#bookingModal"] {
+    /* Внешний вид: затемнённый оранжевый градиент + заметная обводка */
+    border-radius: 12px; /* закругления */
+    border: 2px solid #8a3b00; /* тёмная обводка */
+    background: linear-gradient(180deg, #ff7a00 0%, #c94a00 100%); /* затемнённый оранжевый градиент */
+    color: #ffffff; /* белый текст для контраста */
+    padding: 10px 20px;
+    font-weight: 700;
+    display: inline-block;
+    box-shadow: 0 6px 18px rgba(201,74,0,0.16);
+    transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+    text-decoration: none;
+}
+
+/* Hover / focus — плавно делаем фон ещё темнее (не ярчим) */
+button[data-bs-target="#bookingModal"]:hover,
+a[data-bs-target="#bookingModal"]:hover,
+button[data-bs-toggle="modal"][data-bs-target="#bookingModal"]:hover,
+a[data-bs-toggle="modal"][data-bs-target="#bookingModal"]:hover,
+button[data-bs-target="#bookingModal"]:focus,
+a[data-bs-target="#bookingModal"]:focus,
+button[data-bs-toggle="modal"][data-bs-target="#bookingModal"]:focus,
+a[data-bs-target="#bookingModal"]:focus {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 26px rgba(169,59,0,0.22);
+    /* более тёмный градиент на ховере */
+    background: linear-gradient(180deg, #d85a00 0%, #8a2f00 100%);
+    transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+    outline: none;
+}
+
+/* Акцент для активного состояния */
+button[data-bs-target="#bookingModal"].active,
+button[data-bs-target="#bookingModal"][aria-pressed="true"] {
+    box-shadow: 0 10px 26px rgba(201,74,0,0.22) inset, 0 6px 18px rgba(0,0,0,0.08);
+}
+
+/* Стилизуем стандартный .btn-primary чтобы форма отправки и другие primary-кнопки выглядели согласованно */
+.btn.btn-primary, .btn-primary {
+    background: linear-gradient(180deg, #ff7a00 0%, #c94a00 100%) !important;
+    border: 2px solid #8a3b00 !important;
+    color: #fff !important;
+    box-shadow: 0 6px 16px rgba(201,74,0,0.14) !important;
+    transition: background 0.18s ease, box-shadow 0.18s ease, transform 0.12s ease !important;
+}
+
+.btn.btn-primary:hover, .btn-primary:hover {
+    background: linear-gradient(180deg, #d85a00 0%, #8a2f00 100%) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 10px 26px rgba(169,59,0,0.22) !important;
+}
+
+/* Улучшенная крупная стилизация формы заявки */
+#bookingModal .modal-dialog {
+    max-width: 640px; /* чуть шире для более крупной формы */
+}
+
+#bookingModal .modal-content {
+    border-radius: 18px;
+    padding: 22px;
+    background: linear-gradient(180deg, #ffffff, #fffefc);
+    box-shadow: 0 28px 70px rgba(13,27,50,0.12);
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+#bookingModal .modal-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #0b1220;
+    margin-bottom: 6px;
+}
+
+#bookingModal .form-label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #374151;
+}
+
+#bookingModal .form-control,
+#bookingModal .form-select {
+    font-size: 1.125rem; /* крупнее */
+    padding: 14px 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(15,23,42,0.08);
+    background: #fff;
+    box-shadow: 0 6px 18px rgba(2,6,23,0.04) inset;
+}
+
+#bookingModal .helper-note {
+    font-size: 0.95rem;
+    color: #6b7280;
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* Центрируем футер и кнопку отправки, убираем кнопку отмены (markup) */
+#bookingModal .modal-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 18px 20px 14px 20px;
+    background: transparent;
+    border-top: none;
+}
+
+/* Универсальный стиль для кнопки отправки внутри модалки */
+#bookingModal .btn.btn-primary {
+    padding: 12px 34px;
+    border-radius: 12px;
+    font-size: 1.035rem;
+    font-weight: 800;
+    letter-spacing: 0.2px;
+    box-shadow: 0 12px 30px rgba(201,74,0,0.16);
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+#bookingModal .btn.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 18px 38px rgba(169,59,0,0.22);
+}
+
+/* Убираем outline и стилизуем фокус для доступности */
+#bookingModal .form-control:focus,
+#bookingModal .form-select:focus,
+#bookingModal .btn:focus {
+    outline: none;
+    box-shadow: 0 4px 18px rgba(59,130,246,0.12);
+    border-color: rgba(59,130,246,0.35);
+}
+
+@media (max-width: 576px) {
+    #bookingModal .modal-dialog {
+        max-width: calc(100% - 1rem);
+        margin: 0.5rem;
+    }
+
+    #bookingModal .modal-content {
+        padding: 14px;
+    }
+
+    #bookingModal .modal-title {
+        font-size: 1.15rem;
+    }
+
+    #bookingModal .form-control,
+    #bookingModal .form-select {
+        font-size: 1rem;
+        padding: 12px 12px;
+    }
+
+    #bookingModal .btn.btn-primary {
+        width: 100%;
+        max-width: 420px;
+    }
+}

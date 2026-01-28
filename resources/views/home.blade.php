@@ -12,7 +12,7 @@
                 <span class="hero-title--small">detalng studio</span>
             </h1>
             <p class="hero-subtitle">Качественные услуги по низким ценам</p>
-            <button class="hero-cta">Записаться</button>
+            <button type="button" class="hero-cta btn btn-primary" data-bs-toggle="modal" data-bs-target="#bookingModal" data-bs-service="">Записаться</button>
         </div>
     </section>
 

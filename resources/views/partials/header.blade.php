@@ -24,15 +24,18 @@
                             <a href="/services">Примеры работ</a>
                         </li>
                         <li class="menu__item">
-                            <a href="/sss">Контакты</a>
+                            <a href="{{ route('contacts') }}">Контакты</a>
                         </li>
                         <li class="menu__item">
-                            <a href="tel:+77001234567" class="contact-phone__link">
-                                +7 700 123-45-67
+                            <a href="tel:{{ preg_replace('/[^+0-9]/', '', $settings['phone'] ?? '+77001234567') }}" class="contact-phone__link">
+                                {{ $settings['phone'] ?? '+7 700 123-45-67' }}
                             </a>
                         </li>
 
-                        <button>Записаться</button>
+                        <!-- trigger booking modal -->
+                        <li class="menu__item">
+                            <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#bookingModal" data-bs-service="">Записаться</button>
+                        </li>
                     </ul>
                     <!-- Burger button for tablet/mobile -->
                     <div class="burger" aria-label="Toggle menu" role="button" tabindex="0">
@@ -63,7 +66,7 @@
                         </li>
 
                         <li class="mobile-menu__item">
-                            <a href="#">Контакты</a>
+                            <a href="{{ route('contacts') }}">Контакты</a>
                         </li>
                     </ul>
                 </nav>

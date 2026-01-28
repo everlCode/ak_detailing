@@ -9,38 +9,32 @@
 
         <div class="services-slider swiper" aria-label="Слайдер наших услуг">
             <div class="slides swiper-wrapper">
-                <div class="service-slide swiper-slide" role="group" aria-roledescription="slide" aria-label="Полировка кузова">
-                    <div class="slide-image">
-                        <img src="{{ asset('/images/car.jpg') }}" alt="Полировка кузова">
+                @if(isset($services) && $services->count())
+                    @foreach($services as $service)
+                        <div class="service-slide swiper-slide" role="group" aria-roledescription="slide" aria-label="{{ $service->name }}">
+                            <div class="slide-image">
+                                <img src="{{ asset('/images/car.jpg') }}" alt="{{ $service->name }}">
+                            </div>
+                            <div class="slide-content">
+                                <h3>{{ $service->name }}</h3>
+                                <p>{{ Str::limit($service->description, 160) }}</p>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bookingModal" data-bs-service="{{ $service->id }}">Записаться</button>
+                            </div>
+                        </div>
+                    @endforeach
+                @else
+                    <!-- fallback static slides -->
+                    <div class="service-slide swiper-slide" role="group" aria-roledescription="slide" aria-label="Полировка кузова">
+                        <div class="slide-image">
+                            <img src="{{ asset('/images/car.jpg') }}" alt="Полировка кузова">
+                        </div>
+                        <div class="slide-content">
+                            <h3>Полировка кузова</h3>
+                            <p>Комплексная полировка вернёт блеск и удалит микроскребки. Используем профессиональную абразивную и финишную полировку.</p>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bookingModal" data-bs-service="1">Записаться</button>
+                        </div>
                     </div>
-                    <div class="slide-content">
-                        <h3>Полировка кузова</h3>
-                        <p>Комплексная полировка вернёт блеск и удалит микроскребки. Используем профессиональную абразивную и финишную полировку.</p>
-                        <button>Записаться</button>
-                    </div>
-                </div>
-
-                <div class="service-slide swiper-slide" role="group" aria-roledescription="slide" aria-label="Химчистка салона">
-                    <div class="slide-image">
-                        <img src="{{ asset('/images/car.jpg') }}" alt="Химчистка салона">
-                    </div>
-                    <div class="slide-content">
-                        <h3>Химчистка салона</h3>
-                        <p>Глубокая чистка ткани и кожи, удаление запахов и пятен с применением безопасных профессиональных средств.</p>
-                        <button>Записаться</button>
-                    </div>
-                </div>
-
-                <div class="service-slide swiper-slide" role="group" aria-roledescription="slide" aria-label="Нанесение керамики">
-                    <div class="slide-image">
-                        <img src="{{ asset('/images/car.jpg') }}" alt="Нанесение керамики">
-                    </div>
-                    <div class="slide-content">
-                        <h3>Нанесение керамики</h3>
-                        <p>Долговременная защита кузова, повышенная гидрофобность и устойчивость к агрессивным внешним воздействиям.</p>
-                        <button>Записаться</button>
-                    </div>
-                </div>
+                @endif
             </div>
 
             <!-- Кнопки навигации со SVG-иконками -->
@@ -69,4 +63,3 @@
 
 <!-- Невидимый якорь для кнопки "Записаться" -->
 <div id="booking" style="position:relative; height:1px; width:1px; overflow:hidden; visibility:hidden;"></div>
-

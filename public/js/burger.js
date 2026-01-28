@@ -55,6 +55,7 @@
 
         // close menu when clicking outside
         document.addEventListener('click', function (e) {
+            if (!mobileMenu.classList.contains('active')) return;
             if (!burger.contains(e.target) && !mobileMenu.contains(e.target)) {
                 closeMenu();
             }

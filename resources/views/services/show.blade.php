@@ -13,7 +13,7 @@
 
                 <div class="service-meta">
                     <div class="price">Цена: <strong>{{ number_format($service->price, 2, ',', ' ') }} ₽</strong></div>
-                    <a href="tel:+71234567890" class="btn primary">Записаться</a>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bookingModal" data-bs-service="{{ $service->name }}">Записаться</button>
                 </div>
 
                 <div class="service-description">
