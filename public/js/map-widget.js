@@ -2,9 +2,22 @@
 (function(){
     function initMap(){
         if(!window.ymaps) return;
-        var center = [58.578176, 49.670084]; // произвольная точка (Москва)
         var mapEl = document.getElementById('yandex-map');
         if(!mapEl) return;
+
+        // Берём координаты из data-атрибута data-coords у элемента #yandex-map (формат "lat,lon").
+        var center = [58.578176, 49.670084];
+        try {
+            var coordsAttr = mapEl.getAttribute('data-coords');
+            if (coordsAttr && typeof coordsAttr === 'string' && coordsAttr.indexOf(',') !== -1) {
+                var parts = coordsAttr.split(',').map(function(s){ return parseFloat(s.trim()); });
+                if (parts.length === 2 && !isNaN(parts[0]) && !isNaN(parts[1])) {
+                    center = parts;
+                }
+            }
+        } catch(e) {
+            // используем запасные координаты
+        }
 
         try {
             var map = new ymaps.Map('yandex-map', {
@@ -41,4 +54,3 @@
         setTimeout(function(){ clearInterval(check); }, 5000);
     }
 })();
-

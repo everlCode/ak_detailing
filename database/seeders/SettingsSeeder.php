@@ -15,5 +15,7 @@ class SettingsSeeder extends Seeder
         Setting::updateOrCreate(['key' => 'phone'], ['value' => '+7 700 123-45-67']);
         Setting::updateOrCreate(['key' => 'telegram'], ['value' => '@your_telegram']);
         Setting::updateOrCreate(['key' => 'address'], ['value' => 'г. Алматы, ул. Примерная, 10']);
+        // Координаты карты: формат "lat,lon"
+        Setting::updateOrCreate(['key' => 'map_coords'], ['value' => '43.238949,76.889709']);
     }
 }

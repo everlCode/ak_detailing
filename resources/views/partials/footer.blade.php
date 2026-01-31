@@ -10,15 +10,29 @@
             <ul>
                 <li class="footer-contact-item">
                     <span class="fc-label">Телефон:</span>
-                    <a href="tel:+71234567890" class="fc-link">+7 (123) 456-78-90</a>
+                    @if(!empty($settings['phone']))
+                        <a href="tel:{{ preg_replace('/[^+0-9]/', '', $settings['phone']) }}" class="fc-link">{{ $settings['phone'] }}</a>
+                    @endif
                 </li>
                 <li class="footer-contact-item">
                     <span class="fc-label">Telegram:</span>
-                    <a href="https://t.me/ak_detailing" target="_blank" rel="noopener" class="fc-link">@ak_detailing</a>
+                    @if(!empty($settings['telegram']))
+                        @php
+                            $tg = trim($settings['telegram']);
+                            $tgHref = $tg;
+                            if (!preg_match('#^https?://#i', $tg)) {
+                                $handle = ltrim($tg, '@');
+                                $tgHref = 'https://t.me/' . $handle;
+                            }
+                        @endphp
+                        <a href="{{ $tgHref }}" target="_blank" rel="noopener" class="fc-link">{{ $tg }}</a>
+                    @endif
                 </li>
                 <li class="footer-contact-item">
                     <span class="fc-label">Адрес:</span>
-                    <span class="fc-link">г. Москва, ул. Примерная, 12</span>
+                    @if(!empty($settings['address']))
+                        <span class="fc-link">{{ $settings['address'] }}</span>
+                    @endif
                 </li>
             </ul>
         </div>
@@ -30,4 +44,3 @@
         </div>
     </div>
 </footer>
-

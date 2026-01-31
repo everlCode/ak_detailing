@@ -15,7 +15,7 @@
                     </svg>
                     <div>
                         <div class="label">Адрес</div>
-                        <div class="value">г. Москва, ул. Примерная, 12</div>
+                        <div class="value">@if(!empty($settings['address'])) {{ $settings['address'] }} @endif</div>
                     </div>
                 </div>
 
@@ -25,7 +25,7 @@
                     </svg>
                     <div>
                         <div class="label">Телефон</div>
-                        <div class="value"><a href="tel:+71234567890">+7 (123) 456-78-90</a></div>
+                        <div class="value">@if(!empty($settings['phone'])) <a href="tel:{{ preg_replace('/[^+0-9]/', '', $settings['phone']) }}">{{ $settings['phone'] }}</a> @endif</div>
                     </div>
                 </div>
 
@@ -36,17 +36,41 @@
                     </svg>
                     <div>
                         <div class="label">Telegram</div>
-                        <div class="value"><a href="https://t.me/ak_detailing" target="_blank">@ak_detailing</a></div>
+                        <div class="value">
+                            @if(!empty($settings['telegram']))
+                                @php
+                                    $tg = trim($settings['telegram']);
+                                    $tgHref = $tg;
+                                    if (!preg_match('#^https?://#i', $tg)) {
+                                        // если хранится в виде @handle или handle — приводим к t.me
+                                        $handle = ltrim($tg, '@');
+                                        $tgHref = 'https://t.me/' . $handle;
+                                    }
+                                @endphp
+                                <a href="{{ $tgHref }}" target="_blank" rel="noopener">{{ $tg }}</a>
+                            @endif
+                        </div>
                     </div>
                 </div>
 
                 <div class="contact-actions">
-                    <a class="btn primary" href="tel:+71234567890">Позвонить</a>
-                    <button>Написать в Telegram</button>
+                    @if(!empty($settings['phone']))
+                        <a class="btn primary" href="tel:{{ preg_replace('/[^+0-9]/', '', $settings['phone']) }}">Позвонить</a>
+                    @endif
+                    @if(!empty($settings['telegram']))
+                        @php
+                            $tg = trim($settings['telegram']);
+                            $tgHref = $tg;
+                            if (!preg_match('#^https?://#i', $tg)) {
+                                $handle = ltrim($tg, '@');
+                                $tgHref = 'https://t.me/' . $handle;
+                            }
+                        @endphp
+                        <a class="btn" href="{{ $tgHref }}" target="_blank">Написать в Telegram</a>
+                    @endif
                 </div>
             </div>
         </div>
     </div>
 
 </div>
-

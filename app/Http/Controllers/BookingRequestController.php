@@ -17,12 +17,32 @@ class BookingRequestController extends Controller
         $data = $request->validate([
             'name' => 'required|string|max:255',
             'service_id' => 'required|exists:services,id',
+            'phone' => 'required|string',
         ]);
 
         try {
+            // нормализуем телефон: убираем все нецифры
+            $digits = preg_replace('/\D+/', '', $data['phone']);
+            if (strlen($digits) === 10) {
+                // если пользователь ввел 10 цифр, добавим ведущую 7
+                $digits = '7' . $digits;
+            }
+            // заменить 8 в начале на 7
+            if (strpos($digits, '8') === 0) {
+                $digits = '7' . substr($digits, 1);
+            }
+
+            // проверим ожидаемую длину
+            if (!preg_match('/^7\d{10}$/', $digits)) {
+                return $request->expectsJson()
+                    ? response()->json(['status' => 'error', 'message' => 'Неверный формат телефона', 'errors' => ['phone' => ['Неверный формат телефона']]], 422)
+                    : redirect()->back()->withErrors(['phone' => 'Неверный формат телефона']);
+            }
+
             $booking = BookingRequest::create([
                 'name' => $data['name'],
                 'service_id' => $data['service_id'],
+                'phone' => $digits,
             ]);
         } catch (\Throwable $e) {
             Log::error('BookingRequest store error: ' . $e->getMessage());

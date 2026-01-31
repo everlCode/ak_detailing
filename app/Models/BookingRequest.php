@@ -11,6 +11,7 @@ class BookingRequest extends Model
     protected $fillable = [
         'name',
         'service_id',
+        'phone',
     ];
 
     public function service()
