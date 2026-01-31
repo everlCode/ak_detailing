@@ -1,0 +1,28 @@
+version: '3'
+
+dotenv: ['.env']
+
+vars:
+  CONTAINER_PHP: app
+
+tasks:
+
+  # Docker block
+  start:
+    desc: Start all docker containers
+    cmds:
+      - docker compose up -d
+  stop:
+    desc: Stop all docker containers
+    cmds:
+      - docker compose down --remove-orphans
+  restart:
+    desc: Stop and start all docker containers
+    cmds:
+      - task: stop
+      - task: start
+
+  migrate:
+    desc: Run database migrations inside the PHP container
+    cmds:
+      - docker compose exec {{.CONTAINER_PHP}} php artisan migrate --force
