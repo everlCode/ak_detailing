@@ -20,9 +20,9 @@
                                 @endforeach
                             </ul>
                         </li>
-                        <li class="menu__item">
-                            <a href="/services">Примеры работ</a>
-                        </li>
+{{--                        <li class="menu__item">--}}
+{{--                            <a href="/services">Примеры работ</a>--}}
+{{--                        </li>--}}
                         <li class="menu__item">
                             <a href="{{ route('contacts') }}">Контакты</a>
                         </li>

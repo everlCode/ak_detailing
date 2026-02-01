@@ -9,9 +9,11 @@ RUN apt-get update && apt-get install -y \
     git \
     curl \
     libpq-dev \
+    libicu-dev \
     && rm -rf /var/lib/apt/lists/*
 
-RUN docker-php-ext-install pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd
+# Устанавливаем необходимые PHP-расширения, добавляем intl
+RUN docker-php-ext-install pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd intl
 
 COPY --from=composer:2.5 /usr/bin/composer /usr/bin/composer
 

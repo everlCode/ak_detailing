@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\BookingRequest;
+use App\Models\Setting;
+use App\Mail\BookingRequestMail;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class BookingRequestController extends Controller
 {
@@ -44,6 +47,37 @@ class BookingRequestController extends Controller
                 'service_id' => $data['service_id'],
                 'phone' => $digits,
             ]);
+
+            // Отправляем уведомление на email(ы) из настроек
+            $emailsRaw = Setting::get('booking_emails', '');
+            $emails = array_filter(array_map('trim', explode(',', $emailsRaw)));
+
+            // валидируем email-адреса
+            $validEmails = [];
+            foreach ($emails as $e) {
+                if (filter_var($e, FILTER_VALIDATE_EMAIL)) {
+                    $validEmails[] = $e;
+                } else {
+                    Log::warning('Invalid booking email in settings: ' . $e);
+                }
+            }
+
+            // если нет адресов в настройках, используем почту из config
+            if (empty($validEmails)) {
+                $from = config('mail.from.address');
+                if ($from) {
+                    $validEmails[] = $from;
+                }
+            }
+
+            if (!empty($validEmails)) {
+                try {
+                    Mail::to($validEmails)->send(new BookingRequestMail($booking));
+                } catch (\Throwable $e) {
+                    Log::error('Failed to send booking email: ' . $e->getMessage());
+                }
+            }
+
         } catch (\Throwable $e) {
             Log::error('BookingRequest store error: ' . $e->getMessage());
 

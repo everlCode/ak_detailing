@@ -17,5 +17,7 @@ class SettingsSeeder extends Seeder
         Setting::updateOrCreate(['key' => 'address'], ['value' => 'г. Алматы, ул. Примерная, 10']);
         // Координаты карты: формат "lat,lon"
         Setting::updateOrCreate(['key' => 'map_coords'], ['value' => '43.238949,76.889709']);
+        // Почты для уведомлений о заявках (через запятую)
+        Setting::updateOrCreate(['key' => 'booking_emails'], ['value' => 'admin@example.com']);
     }
 }
