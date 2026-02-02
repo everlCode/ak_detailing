@@ -15,7 +15,7 @@
                     <div>
                         <div style="font-weight:600">Телефон</div>
                         @if(!empty($settings['phone']))
-                            <a href="tel:{{ preg_replace('/[^+0-9]/', '', $settings['phone']) }}" style="color:#0b5fff;">{{ $settings['phone'] }}</a>
+                            <a href="tel:{{ preg_replace('/[^+0-9]/', '', $settings['phone']) }}" style="color:#0b5fff;">{{ \App\Models\Setting::formatPhone($settings['phone']) ?? $settings['phone'] }}</a>
                         @endif
                     </div>
                 </div>
@@ -47,7 +47,7 @@
             </div>
 
             <div class="flex-fill" style="min-height:300px;">
-                <div id="yandex-map" data-coords="{{ $settings['map_coords'] ?? '43.238949,76.889709' }}" style="width:100%; height:100%; min-height:300px; border-radius:10px; overflow:hidden;"></div>
+                <div id="yandex-map" data-coords="{{ $settings['map_coords'] }}" style="width:100%; height:100%; min-height:300px; border-radius:10px; overflow:hidden;"></div>
             </div>
         </div>
     </div>

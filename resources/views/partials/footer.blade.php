@@ -11,7 +11,7 @@
                 <li class="footer-contact-item">
                     <span class="fc-label">Телефон:</span>
                     @if(!empty($settings['phone']))
-                        <a href="tel:{{ preg_replace('/[^+0-9]/', '', $settings['phone']) }}" class="fc-link">{{ $settings['phone'] }}</a>
+                        <a href="tel:{{ preg_replace('/[^+0-9]/', '', $settings['phone']) }}" class="fc-link">{{ \App\Models\Setting::formatPhone($settings['phone']) ?? $settings['phone'] }}</a>
                     @endif
                 </li>
                 <li class="footer-contact-item">

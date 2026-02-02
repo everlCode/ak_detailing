@@ -12,19 +12,22 @@ services:
         ports:
             - "9000:9000"
         depends_on:
-            - postgres
+            - mysql
 
-    postgres:
-        image: postgres:15
+    mysql:
+        image: mysql:8.0
         restart: unless-stopped
+        command: --default-authentication-plugin=mysql_native_password
         environment:
-            POSTGRES_DB: laravel
-            POSTGRES_USER: laravel
-            POSTGRES_PASSWORD: laravel
+            MYSQL_DATABASE: laravel
+            MYSQL_USER: laravel
+            MYSQL_PASSWORD: laravel
+            MYSQL_ROOT_PASSWORD: rootpassword
+            MYSQL_ROOT_HOST: '%'
         ports:
-            - "5432:5432"
+            - "3306:3306"
         volumes:
-            - pgdata:/var/lib/postgresql/data
+            - mysqldata:/var/lib/mysql
 
     nginx:
         image: nginx:alpine
@@ -39,5 +42,5 @@ services:
             - app
 
 volumes:
-    pgdata:
-
+    mysqldata:
+    mailhog_data:

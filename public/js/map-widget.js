@@ -6,9 +6,14 @@
         if(!mapEl) return;
 
         // Берём координаты из data-атрибута data-coords у элемента #yandex-map (формат "lat,lon").
-        var center = [58.578176, 49.670084];
+        // Также поддерживаем глобальную переменную window.APP_SETTINGS.map_coords как запасной источник.
+        var center = null;
         try {
-            var coordsAttr = mapEl.getAttribute('data-coords');
+            var coordsAttr = (mapEl.getAttribute('data-coords') || '').trim();
+            if (!coordsAttr && window.APP_SETTINGS && window.APP_SETTINGS.map_coords) {
+                coordsAttr = String(window.APP_SETTINGS.map_coords).trim();
+            }
+
             if (coordsAttr && typeof coordsAttr === 'string' && coordsAttr.indexOf(',') !== -1) {
                 var parts = coordsAttr.split(',').map(function(s){ return parseFloat(s.trim()); });
                 if (parts.length === 2 && !isNaN(parts[0]) && !isNaN(parts[1])) {
@@ -16,7 +21,17 @@
                 }
             }
         } catch(e) {
-            // используем запасные координаты
+            // если что-то пошло не так — оставляем center = null
+            center = null;
+        }
+
+        // Если координаты не заданы или некорректны — прекращаем инициализацию, чтобы убрать хардкод
+        if (!center) {
+            // В разработке удобнее видеть предупреждение, в проде можно убрать
+            if (window.console && window.console.warn) {
+                console.warn('Map coordinates are not provided or invalid. Set data-coords on #yandex-map or window.APP_SETTINGS.map_coords');
+            }
+            return;
         }
 
         try {

@@ -28,7 +28,7 @@
                         </li>
                         <li class="menu__item">
                             <a href="tel:{{ preg_replace('/[^+0-9]/', '', $settings['phone'] ?? '+77001234567') }}" class="contact-phone__link">
-                                {{ $settings['phone'] ?? '+7 700 123-45-67' }}
+                                {{ \App\Models\Setting::formatPhone($settings['phone'] ?? '+7 700 123-45-67') ?? ($settings['phone'] ?? '+7 700 123-45-67') }}
                             </a>
                         </li>
 
@@ -52,16 +52,20 @@
                             <a href="#">Главная</a>
                         </li>
 
-                        <li class="mobile-menu__item has-submenu">
+                        <li class="mobile-menu__item has-submenu open">
                             <button type="button" class="submenu-toggle">
                                 Услуги
                                 <span class="arrow">▼</span>
                             </button>
 
                             <ul class="submenu">
-                                <li><a href="#">Химчистка</a></li>
-                                <li><a href="#">Полировка</a></li>
-                                <li><a href="#">Защита кузова</a></li>
+                                @foreach ($services as $service)
+                                    <li>
+                                        <a href="{{ route('services.show', ['alias' => $service->alias]) }}">
+                                            {{ $service->name }}
+                                        </a>
+                                    </li>
+                                @endforeach
                             </ul>
                         </li>
 
@@ -74,8 +78,6 @@
         </div>
     </div>
 </header>
-
-<link rel="stylesheet" href="/css/app.css">
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {

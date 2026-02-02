@@ -17,7 +17,7 @@
                             </div>
                             <div class="slide-content">
                                 <h3>{{ $service->name }}</h3>
-                                <p>{{ Str::limit($service->description, 160) }}</p>
+                                <p>{{ Str::limit($service->short_description, 160) }}</p>
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bookingModal" data-bs-service="{{ $service->id }}">Записаться</button>
                             </div>
                         </div>
@@ -58,7 +58,6 @@
 @push('scripts')
 <!-- Swiper JS (CDN) + инициализация нашего скрипта -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-<script src="{{ asset('/js/services-slider.js') }}" defer></script>
 @endpush
 
 <!-- Невидимый якорь для кнопки "Записаться" -->

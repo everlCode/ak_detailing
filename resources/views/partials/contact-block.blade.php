@@ -25,7 +25,7 @@
                     </svg>
                     <div>
                         <div class="label">Телефон</div>
-                        <div class="value">@if(!empty($settings['phone'])) <a href="tel:{{ preg_replace('/[^+0-9]/', '', $settings['phone']) }}">{{ $settings['phone'] }}</a> @endif</div>
+                        <div class="value">@if(!empty($settings['phone'])) <a href="tel:{{ preg_replace('/[^+0-9]/', '', $settings['phone']) }}">{{ \App\Models\Setting::formatPhone($settings['phone']) ?? $settings['phone'] }}</a> @endif</div>
                     </div>
                 </div>
 
@@ -48,6 +48,27 @@
                                     }
                                 @endphp
                                 <a href="{{ $tgHref }}" target="_blank" rel="noopener">{{ $tg }}</a>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.5 14.5c-.66.83-1.66 1.5-2.88 1.5-1.73 0-2.5-1.17-4.05-1.17-.7 0-1.03.39-2.05.39-1.44 0-2.68-1.17-3.36-1.82V12c.62.44 1.88 1.3 3.36 1.3.98 0 1.35-.39 2.05-.39 1.55 0 2.32 1.17 4.05 1.17 1.22 0 2.22-.67 2.88-1.5.25-.31.57-.5.57-.81 0-.33-.47-.49-.87-.49-.77 0-1.77.5-2.28.5-.77 0-1.02-.5-1.7-.5-.62 0-.99.33-1.7.33-1.34 0-2.07-.67-2.9-.67-1.23 0-1.9.83-2.9.83v3.17c.54.47 1.36 1.09 2.73 1.09 1.26 0 1.72-.72 2.64-.72.78 0 1.1.5 1.86.5.6 0 1.6-.7 2.5-.7 1.08 0 1.77.93 3.2.93 1.1 0 1.92-.55 2.85-1.3v-4.1c-.86-.38-1.68-.79-2.6-.79-1.42 0-1.96.48-2.95.48-.69 0-1.12-.5-1.8-.5-.75 0-1.1.6-1.9.6-.78 0-1.33-.5-2.1-.5-1.28 0-1.95.8-3.1.8-1.24 0-1.97-.8-3.2-.8v-1.1c1.16 0 1.53-.42 3.1-.42 1.04 0 1.54.36 2.26.36.95 0 1.3-.36 2.05-.36 1.05 0 1.94.67 3.1.67 1.2 0 1.93-.67 3.1-.67.8 0 1.33.42 2.1.42.6 0 1.1-.42 1.86-.42.66 0 1.1.33 1.86.33.72 0 1.26-.33 1.86-.33.66 0 1.1.33 1.86.33.66 0 1.1-.33 1.86-.33.66 0 1.1.33 1.86.33v3.4z" stroke="#0f172a" stroke-width="0" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <div>
+                        <div class="label">ВКонтакте</div>
+                        <div class="value">
+                            @if(!empty($settings['vk_link']))
+                                @php
+                                    $vk = trim($settings['vk_link']);
+                                    $vkHref = $vk;
+                                    if (!preg_match('#^https?://#i', $vk)) {
+                                        $vkHref = 'https://' . $vk;
+                                    }
+                                @endphp
+                                <a href="{{ $vkHref }}" target="_blank" rel="noopener">{{ preg_replace('@https?://(www\.)?@', '', $vk) }}</a>
                             @endif
                         </div>
                     </div>

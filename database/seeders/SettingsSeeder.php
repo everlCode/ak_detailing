@@ -19,5 +19,7 @@ class SettingsSeeder extends Seeder
         Setting::updateOrCreate(['key' => 'map_coords'], ['value' => '43.238949,76.889709']);
         // Почты для уведомлений о заявках (через запятую)
         Setting::updateOrCreate(['key' => 'booking_emails'], ['value' => 'admin@example.com']);
+        // Ссылка на группу ВКонтакте
+        Setting::updateOrCreate(['key' => 'vk_link'], ['value' => 'https://vk.com/your_group']);
     }
 }

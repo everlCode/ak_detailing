@@ -120,10 +120,23 @@ section {
 .logotype {
     max-height: 80px;
     max-width: 200px;
+    height: 80px; /* явная высота, чтобы в Safari не было пересчёта 100% родителя */
+    display: flex;
+    align-items: center;
+}
+
+.logotype a {
+    height: 100%;
 }
 
 .logotype img {
+    /* Обеспечиваем корректное масштабирование изображения внутри контейнера */
+    height: auto; /* не позволяем картинке расти до 100% по высоте родителя бесконтрольно */
     max-height: 100%;
+    max-width: 100%;
+    width: auto;
+    display: block;
+    object-fit: contain;
 }
 
 a, button {

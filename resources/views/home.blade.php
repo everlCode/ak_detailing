@@ -9,9 +9,9 @@
         <div class="container hero-content">
             <h1 class="hero-title">
                 <span class="hero-title--big">A.K</span>
-                <span class="hero-title--small">detalng studio</span>
+                <span class="hero-title--small">Detailing studio</span>
             </h1>
-            <p class="hero-subtitle">Качественные услуги по низким ценам</p>
+            <p class="hero-subtitle">Профессиональная детейлинг студия в Кирове</p>
             <button type="button" class="hero-cta btn btn-primary" data-bs-toggle="modal" data-bs-target="#bookingModal" data-bs-service="">Записаться</button>
         </div>
     </section>
@@ -38,5 +38,4 @@
 @push('scripts')
 <!-- Swiper JS (CDN) + инициализация нашего скрипта -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-<script src="{{ asset('/js/services-slider.js') }}" defer></script>
 @endpush

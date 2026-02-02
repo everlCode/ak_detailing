@@ -9,7 +9,8 @@
         <p class="map-sub">Заезд и парковка у входа. Приезжайте — покажем образцы работ.</p>
 
         <div class="map-container">
-            <div id="yandex-map" aria-label="Карта с расположением студии"></div>
+            {{-- Передаём координаты из настроек: ключ `map_coords` в формате "lat,lon" --}}
+            <div id="yandex-map" aria-label="Карта с расположением студии" data-coords="{{ $settings['map_coords'] ?? '58.578176,49.670084' }}"></div>
         </div>
     </div>
 </section>

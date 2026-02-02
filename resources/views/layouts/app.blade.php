@@ -12,11 +12,11 @@
     <!-- Добавляем Inter для интерфейса формы -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
-    {{-- Подключение стилей и скриптов без Vite (прямые ассеты) --}}
-    <link rel="stylesheet" href="{{ asset('/css/normalize.css') }}">
     <!-- Bootstrap CSS (CDN) - подключаем ДО app.css, чтобы переопределения работали -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ asset('/css/app.css') }}">
+    {{-- Vite assets (app.css / app.js) --}}
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @stack('styles')
     <style>
         .banner-slider { background: linear-gradient(120deg, #007bff 50%, #2d3a4b 100%); color: #fff; text-align: center; padding: 60px 0 40px 0;}
         .service-menu { margin: 40px 0 30px 0;}
@@ -53,8 +53,7 @@
 {{-- Bootstrap (CDN) оставляю для компонентов, если нужны --}}
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-{{-- Подключаем единый статический JS-файл для бургер-меню --}}
-<script src="{{ asset('/js/burger.js') }}" defer></script>
+{{-- Vite подключает resources/js/app.js, который импортирует burger.js --}}
 
 @stack('scripts')
 </body>

@@ -5,6 +5,9 @@ dotenv: ['.env']
 vars:
   CONTAINER_PHP: app
 
+# Для работы задачи deploy установите lftp на своей машине/сервере и заполните в .env:
+# FTP_HOST, FTP_USER, FTP_PASS, FTP_PATH (путь на сервере, куда деплоить)
+
 tasks:
 
   # Docker block
@@ -26,3 +29,36 @@ tasks:
     desc: Run database migrations inside the PHP container
     cmds:
       - docker compose exec {{.CONTAINER_PHP}} php artisan migrate --force
+
+  deploy:
+    desc: Deploy project to FTP using lftp (mirror). Excludes node_modules, vendor and tests.
+    cmds:
+      - |
+        if ! command -v lftp >/dev/null 2>&1; then
+          echo "lftp is not installed. Install it and retry (eg. apt install lftp)";
+          exit 1;
+        fi
+        if [ -z "$FTP_HOST" ] || [ -z "$FTP_USER" ] || [ -z "$FTP_PASS" ]; then
+          echo "Please set FTP_HOST, FTP_USER and FTP_PASS in your .env file or environment.";
+          exit 1;
+        fi
+        # Используем mirror -R для загрузки из текущей директории в удаленную
+        # --exclude-glob для исключения больших директорий
+        # --delete синхронизирует удалённую сторону (удаляет файлы которых нет локально)
+        lftp -c "
+        set ftp:list-options -a;
+        set ssl:verify-certificate no;
+        set net:timeout 10;
+        set net:max-retries 2;
+        open -u $FTP_USER,$FTP_PASS $FTP_HOST;
+        mirror -R --parallel=5 --verbose \
+        --exclude-glob node_modules/** \
+        --exclude-glob vendor/** \
+        --exclude-glob tests/** \
+        --exclude-glob storage/** \
+        --exclude .env \
+        --exclude .composer.lock \
+        --exclude bootstrap/cache** \
+        --no-perms --no-umask \
+        ./ $FTP_PATH
+        "

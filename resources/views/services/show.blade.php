@@ -12,12 +12,12 @@
                 </div>
 
                 <div class="service-meta">
-                    <div class="price">Цена: <strong>{{ number_format($service->price, 2, ',', ' ') }} ₽</strong></div>
+                    <div class="price">Цена: от <strong>{{ number_format($service->price, 2, ',', ' ') }} ₽</strong></div>
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bookingModal" data-bs-service="{{ $service->name }}">Записаться</button>
                 </div>
 
                 <div class="service-description">
-                    {!! nl2br(e($service->description)) !!}
+                    {!! $service->description !!}
                 </div>
             </div>
         </div>
