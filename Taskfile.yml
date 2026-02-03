@@ -29,6 +29,9 @@ tasks:
     desc: Run database migrations inside the PHP container
     cmds:
       - docker compose exec {{.CONTAINER_PHP}} php artisan migrate --force
+  npm:
+    cmds:
+      - npm run build
 
   deploy:
     desc: Deploy project to FTP using lftp (mirror). Excludes node_modules, vendor and tests.
@@ -56,6 +59,7 @@ tasks:
         --exclude-glob vendor/** \
         --exclude-glob tests/** \
         --exclude-glob storage/** \
+        --exclude-glob .idea/** \
         --exclude .env \
         --exclude .composer.lock \
         --exclude bootstrap/cache** \

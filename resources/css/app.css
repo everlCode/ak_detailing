@@ -339,7 +339,6 @@ body {
         text-decoration: none;
         border-radius: 4px;
         font-size: 20px;
-        margin-top: 10px;
         width: 100%;
         text-align: center;
     }
@@ -427,11 +426,12 @@ body {
 
 .mobile-menu__item .submenu {
     background: none;
+    margin-left: 20px;
 }
 
 /* Пункты подменю */
 .submenu li a {
-    padding: 14px 32px;
+    padding: 7px 16px;
     display: block;
     color: #ccc;
 }
@@ -571,10 +571,16 @@ h2 {
     text-align: left;
 }
 
-.service-slide h3 {
+.service-slide a {
     margin-top: 0;
     margin-bottom: 12px;
     font-size: 1.6rem;
+    color: #000;
+    text-decoration: none;
+}
+
+.service-slide a:hover {
+    text-decoration: underline;
 }
 
 .service-slide p {

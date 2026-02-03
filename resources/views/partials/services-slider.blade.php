@@ -13,10 +13,14 @@
                     @foreach($services as $service)
                         <div class="service-slide swiper-slide" role="group" aria-roledescription="slide" aria-label="{{ $service->name }}">
                             <div class="slide-image">
-                                <img src="{{ asset('/images/car.jpg') }}" alt="{{ $service->name }}">
+                                @php
+                                    $imgPath = $service->mainImage && $service->mainImage->path ? asset($service->mainImage->path) : asset('images/car.jpg');
+                                    $imgAlt = $service->mainImage && $service->mainImage->alt ? $service->mainImage->alt : $service->name;
+                                @endphp
+                                <img src="{{ $imgPath }}" alt="{{ $imgAlt }}" loading="lazy">
                             </div>
                             <div class="slide-content">
-                                <h3>{{ $service->name }}</h3>
+                                <a href="{{ "/services/" . $service->alias }}">{{ $service->name }}</a>
                                 <p>{{ Str::limit($service->short_description, 160) }}</p>
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bookingModal" data-bs-service="{{ $service->id }}">Записаться</button>
                             </div>

@@ -5,10 +5,14 @@
 @section('content')
     <section class="services-section service-page">
         <div class="container">
+            @php
+                $imgPath = $service->mainImage && $service->mainImage->path ? asset($service->mainImage->path) : asset('images/car.jpg');
+                $imgAlt = $service->mainImage && $service->mainImage->alt ? $service->mainImage->alt : $service->name;
+            @endphp
             <h1>{{ $service->name }} в Кирове</h1>
             <div class="service-card">
                 <div class="service-image">
-                    <img src="{{ asset('/images/car.jpg') }}" alt="{{ $service->name }}">
+                    <img src="{{ asset($imgPath) }}" alt="{{ $service->name }}">
                 </div>
 
                 <div class="service-meta">

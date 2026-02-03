@@ -14,6 +14,7 @@ class Service extends Model
         'price',
         'alias',
         'description',
+        'short_description',
     ];
 
     /**
@@ -22,5 +23,16 @@ class Service extends Model
     protected $casts = [
         'price' => 'decimal:2',
     ];
-}
 
+    // Связь на главное изображение
+    public function mainImage()
+    {
+        return $this->hasOne(\App\Models\Image::class, 'reference_id')->where('type', 'main');
+    }
+
+    // Связь на примеры (примерные изображения)
+    public function exampleImages()
+    {
+        return $this->hasMany(\App\Models\Image::class, 'reference_id')->where('type', 'example');
+    }
+}
