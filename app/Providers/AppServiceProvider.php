@@ -27,31 +27,17 @@ class AppServiceProvider extends ServiceProvider
             return;
         }
 
-        // Композер представления: подставляем $services в partial header на всех страницах
         View::composer('partials.header', function ($view) {
             try {
-                $services = Service::orderBy('name')->get();
+                $services = cache()->remember('settings_all', 60 * 60 * 24, function () {
+                    return Service::orderBy('name')->get();
+                });
             } catch (\Throwable $e) {
                 // В случае ошибки при получении — передаём пустую коллекцию
                 $services = collect();
             }
 
             $view->with('services', $services);
-        });
-
-        // Загрузка настроек в глобальную переменную для view
-        View::composer('*', function ($view) {
-            try {
-                $rows = Setting::all();
-                $settings = [];
-                foreach ($rows as $row) {
-                    $settings[$row->key] = $row->value;
-                }
-            } catch (\Throwable $e) {
-                $settings = [];
-            }
-
-            $view->with('settings', $settings);
         });
     }
 }
