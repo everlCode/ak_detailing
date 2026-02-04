@@ -12,14 +12,14 @@ class SettingsSeeder extends Seeder
      */
     public function run(): void
     {
-        Setting::updateOrCreate(['key' => 'phone'], ['value' => '+7 700 123-45-67']);
-        Setting::updateOrCreate(['key' => 'telegram'], ['value' => '@your_telegram']);
-        Setting::updateOrCreate(['key' => 'address'], ['value' => 'г. Алматы, ул. Примерная, 10']);
+        Setting::updateOrCreate(['key' => 'phone'], ['value' => '+79195144711']);
+        Setting::updateOrCreate(['key' => 'telegram'], ['value' => '@ak_detailing43']);
+        Setting::updateOrCreate(['key' => 'address'], ['value' => 'г. Киров, Автотранспортный переулок, 4ж']);
         // Координаты карты: формат "lat,lon"
-        Setting::updateOrCreate(['key' => 'map_coords'], ['value' => '43.238949,76.889709']);
+        Setting::updateOrCreate(['key' => 'map_coords'], ['value' => '58.578203, 49.670062']);
         // Почты для уведомлений о заявках (через запятую)
-        Setting::updateOrCreate(['key' => 'booking_emails'], ['value' => 'admin@example.com']);
+        Setting::updateOrCreate(['key' => 'booking_emails'], ['value' => 'kolukul1996@gmail.com, andrey.kylak.98@mail.ru']);
         // Ссылка на группу ВКонтакте
-        Setting::updateOrCreate(['key' => 'vk_link'], ['value' => 'https://vk.com/your_group']);
+        Setting::updateOrCreate(['key' => 'vk_link'], ['value' => 'https://vk.com/detailing_kirov']);
     }
 }

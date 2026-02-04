@@ -24,3 +24,7 @@ Route::get('/services/{alias}', [ServiceController::class, 'show'])->name('servi
 Route::get('/contacts', [ContactsController::class, 'index'])->name('contacts');
 
 Route::post('/booking', [BookingRequestController::class, 'store'])->name('booking.store');
+
+// Sitemap
+Route::get('/sitemap.xml', [App\Http\Controllers\SitemapController::class, 'index'])->name('sitemap');
+

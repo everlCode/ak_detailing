@@ -281,6 +281,8 @@
             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
             'Accept': 'application/json'
           },
+          // Важно: отправляем куки сессии (Laravel сверяет токен с сессионным токеном)
+          credentials: 'same-origin',
           body: formData,
         }).then(function (res) {
           return res.json().then(function (data) {

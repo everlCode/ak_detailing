@@ -12,7 +12,7 @@
             spaceBetween: 24,
             grabCursor: true,
             keyboard: { enabled: true, onlyInViewport: true },
-            autoplay: { delay: 4500, disableOnInteraction: false },
+            autoplay: { delay: 8500, disableOnInteraction: false },
             navigation: { nextEl: root.querySelector('.swiper-button-next'), prevEl: root.querySelector('.swiper-button-prev') },
             pagination: { el: root.querySelector('.swiper-pagination'), clickable: true, bulletClass: 'swiper-pagination-bullet', bulletActiveClass: 'swiper-pagination-bullet-active' },
             a11y: true,
@@ -35,7 +35,7 @@
     const dotsWrap = root.querySelector('.slider-dots');
     let index = 0;
     let autoplayId = null;
-    const AUTOPLAY_INTERVAL = 4500;
+    const AUTOPLAY_INTERVAL = 8500;
 
     // Создаём точки
     slides.forEach((_, i) => {

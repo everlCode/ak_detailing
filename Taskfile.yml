@@ -45,9 +45,8 @@ tasks:
           echo "Please set FTP_HOST, FTP_USER and FTP_PASS in your .env file or environment.";
           exit 1;
         fi
-        # Используем mirror -R для загрузки из текущей директории в удаленную
-        # --exclude-glob для исключения больших директорий
-        # --delete синхронизирует удалённую сторону (удаляет файлы которых нет локально)
+        # Основная синхронизация проекта (за исключением больших директорий)
+        # Затем отдельный mirror для public/build — чтобы гарантированно залить все файлы сборки Vite
         lftp -c "
         set ftp:list-options -a;
         set ssl:verify-certificate no;
@@ -64,5 +63,8 @@ tasks:
         --exclude .composer.lock \
         --exclude bootstrap/cache** \
         --no-perms --no-umask \
-        ./ $FTP_PATH
+        ./ $FTP_PATH;
+
+        # Гарантированно заливаем папку public/build в удалённый $FTP_PATH/public/build
+        mirror -R --parallel=5 --verbose --no-perms --no-umask public/build $FTP_PATH/public/build;
         "

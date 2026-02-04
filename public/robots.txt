@@ -1,2 +1,14 @@
 User-agent: *
 Disallow:
+
+# Block common dev folders
+Disallow: /vendor/
+Disallow: /node_modules/
+Disallow: /storage/
+Disallow: /tests/
+
+# Allow build assets (public/build доступен как /build/)
+Allow: /build/
+
+# Sitemap
+Sitemap: https://akdetailing.ru/sitemap.xml

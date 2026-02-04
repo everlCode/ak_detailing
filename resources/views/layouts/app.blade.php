@@ -5,6 +5,12 @@
     <title>@yield('title', 'Детейлинг услуги')</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ asset('images/meta/favicon.ico') }}">
+    <link rel="shortcut icon" href="{{ asset('images/meta/favicon.ico') }}">
+    <link rel="apple-touch-icon" href="{{ asset('images/meta/apple-touch-icon.png.png') }}">
+
     {{-- Подключаем шрифты до основных стилей чтобы избежать мерцания и обеспечить доступность семейства в CSS --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,6 +20,20 @@
 
     <!-- Bootstrap CSS (CDN) - подключаем ДО app.css, чтобы переопределения работали -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function(m,e,t,r,i,k,a){
+            console.log('Yandex.Metrika init');
+            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();
+            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=106614691', 'ym');
+
+        ym(106614691, 'init', {webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/106614691" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
     {{-- Vite assets (app.css / app.js) --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('styles')
