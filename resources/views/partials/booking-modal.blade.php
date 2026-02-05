@@ -25,7 +25,7 @@
                         <label for="booking-service" class="form-label">Услуга</label>
                         <select class="form-select" id="booking-service" name="service_id" required>
                             <option value="" disabled selected>Выберите услугу</option>
-                            @foreach($services ?? $_services as $s)
+                            @foreach($services as $s)
                                 <option value="{{ $s->id }}">{{ $s->name }}</option>
                             @endforeach
                         </select>

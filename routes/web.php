@@ -5,6 +5,7 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BookingRequestController;
 use App\Http\Controllers\ContactsController;
+use App\Http\Controllers\ImageUploadController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,3 +29,5 @@ Route::post('/booking', [BookingRequestController::class, 'store'])->name('booki
 // Sitemap
 Route::get('/sitemap.xml', [App\Http\Controllers\SitemapController::class, 'index'])->name('sitemap');
 
+Route::get('/images/upload', [ImageUploadController::class, 'showForm'])->name('images.upload.form');
+Route::post('/images/upload', [ImageUploadController::class, 'store'])->name('images.upload.store');

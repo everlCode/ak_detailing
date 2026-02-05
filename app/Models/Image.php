@@ -17,5 +17,7 @@ class Image extends Model
         'title',
         'type',
         'reference_id',
+        'width',
+        'height',
     ];
 }

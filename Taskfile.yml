@@ -24,7 +24,10 @@ tasks:
     cmds:
       - task: stop
       - task: start
-
+  build:
+    desc: Build or rebuild docker containers
+    cmds:
+      - docker compose build --no-cache
   migrate:
     desc: Run database migrations inside the PHP container
     cmds:
@@ -32,7 +35,11 @@ tasks:
   npm:
     cmds:
       - npm run build
-
+      -
+  cache-clear:
+    desc: Clear application cache inside the PHP container
+    cmds:
+      - docker compose exec {{.CONTAINER_PHP}} php artisan cache:clear
   deploy:
     desc: Deploy project to FTP using lftp (mirror). Excludes node_modules, vendor and tests.
     cmds:

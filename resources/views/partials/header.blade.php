@@ -2,7 +2,7 @@
     <div class="container">
         <div class="menu">
             <div class="logotype">
-                <a itemprop="url" href="/"><img itemprop="logo" src="/images/logo.png" title="Логотип" alt="Логотип"></a>
+                <a itemprop="url" href="/"><img itemprop="logo" src="/images/logo.webp" title="Логотип" alt="Логотип"></a>
             </div>
 
             <div class="nav_bar">

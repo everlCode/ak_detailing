@@ -2,6 +2,9 @@ FROM php:8.2-fpm
 
 RUN apt-get update && apt-get install -y \
     libpng-dev \
+    libjpeg-dev \
+    libwebp-dev \
+    libfreetype6-dev \
     libonig-dev \
     libxml2-dev \
     zip \
@@ -12,8 +15,13 @@ RUN apt-get update && apt-get install -y \
     libicu-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Устанавливаем необходимые PHP-расширения, добавляем intl
-RUN docker-php-ext-install pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd intl
+# ВАЖНО: configure gd
+RUN docker-php-ext-configure gd \
+        --with-freetype \
+        --with-jpeg \
+        --with-webp \
+    && docker-php-ext-install \
+        pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd intl
 
 COPY --from=composer:2.5 /usr/bin/composer /usr/bin/composer
 

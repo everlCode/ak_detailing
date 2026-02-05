@@ -5,7 +5,7 @@
 @section('content')
 
     {{-- Баннер / Слайдер --}}
-    <section class="hero">
+    <section class="hero" style="background-image: url('{{ asset('images/car.webp') }}'), linear-gradient(180deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.65)); background-blend-mode: overlay;">
         <div class="container hero-content">
             <h1 class="hero-title">
                 <span class="hero-title--big">A.K</span>
@@ -17,10 +17,13 @@
     </section>
 
     {{-- Подключаем partial со слайдером услуг --}}
-    @include('partials.services-slider')
+    @include('partials.services-grid')
 
     {{-- Подключаем partial с блоком контактов --}}
-    @include('partials.contact-block')
+    @include('partials.contact-block', [
+
+    'settings' => $settings
+])
 
     {{-- Подключаем partial с картой --}}
     @include('partials.map-block')
@@ -36,6 +39,5 @@
 @endsection
 
 @push('scripts')
-<!-- Swiper JS (CDN) + инициализация нашего скрипта -->
-<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
 @endpush

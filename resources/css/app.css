@@ -469,8 +469,10 @@ body {
     justify-content: center;
     text-align: center;
     color: #fff;
-    /* Keep background covering whole hero */
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.65)), url('/images/car.jpg') center / cover no-repeat;
+    /* Градиент фона; картинку подключаем отдельно (в шаблоне) чтобы избежать проблем с путями в сборке */
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.65));
+    background-size: cover;
+    background-position: center;
     padding-top: 100px; /* account for fixed header height */
     margin: 0;
 }
@@ -1427,3 +1429,49 @@ button[data-bs-target="#bookingModal"][aria-pressed="true"] {
         max-width: 420px;
     }
 }
+
+/* Стили для блока услуг */
+.service-card { overflow: hidden; border-radius: 12px; }
+.service-card .card-img-top {
+    width: 100%;
+    height: 220px; /* базовая высота для мобильных */
+    object-fit: cover;
+    object-position: center center;
+    display: block;
+}
+@media (min-width: 992px) {
+    .service-card .card-img-top {
+        height: 260px; /* высота для десктопа */
+    }
+}
+
+.service-card .card-body { padding: 1rem; }
+.service-card .card-title { font-weight: 700; font-size: 1.05rem; margin-bottom: .5rem; }
+.service-card .card-text { color: #6b6b6b; font-size: .95rem; }
+
+/* Кнопка подробнее — современный стиль: тёмная обводка, лёгкий градиент, закругления */
+.btn-outline-secondary.custom {
+    background: linear-gradient(180deg, #ffffff 0%, #f6f6f6 100%);
+    color: #2b2b2b;
+    border: 1px solid #cfcfcf;
+    border-radius: 10px;
+    padding: .45rem .75rem;
+    transition: all .18s ease-in-out;
+    box-shadow: 0 1px 2px rgba(11,11,11,0.04);
+}
+.btn-outline-secondary.custom:hover {
+    background: linear-gradient(180deg, #f2f2f2 0%, #e9e9e9 100%);
+    transform: translateY(-2px);
+    color: #111;
+    border-color: #bdbdbd;
+}
+
+/* Поддержка центровки кнопки отправки в карточке */
+.service-card .btn { min-width: 110px; }
+
+/* Сжатие текста описания, чтобы карточки выглядели ровнее */
+.card-text { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+/* Optional: плавное появление карточек */
+.service-card { transition: transform .15s ease, box-shadow .15s ease; }
+.service-card:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.06); }

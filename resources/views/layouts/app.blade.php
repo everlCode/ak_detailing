@@ -11,15 +11,6 @@
     <link rel="shortcut icon" href="{{ asset('images/meta/favicon.ico') }}">
     <link rel="apple-touch-icon" href="{{ asset('images/meta/apple-touch-icon.png.png') }}">
 
-    {{-- Подключаем шрифты до основных стилей чтобы избежать мерцания и обеспечить доступность семейства в CSS --}}
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
-    <!-- Добавляем Inter для интерфейса формы -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-
-    <!-- Bootstrap CSS (CDN) - подключаем ДО app.css, чтобы переопределения работали -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript">
         (function(m,e,t,r,i,k,a){
@@ -34,8 +25,10 @@
     </script>
     <noscript><div><img src="https://mc.yandex.ru/watch/106614691" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
     <!-- /Yandex.Metrika counter -->
+
     {{-- Vite assets (app.css / app.js) --}}
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/bootstrap.min.css', 'resources/css/app.css', 'resources/js/app.js', 'resources/js/bootstrap.bundle.min.js'])
+
     @stack('styles')
     <style>
         .banner-slider { background: linear-gradient(120deg, #007bff 50%, #2d3a4b 100%); color: #fff; text-align: center; padding: 60px 0 40px 0;}
@@ -69,11 +62,6 @@
 
 {{-- Вставка модалки записи --}}
 @include('partials.booking-modal')
-
-{{-- Bootstrap (CDN) оставляю для компонентов, если нужны --}}
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-{{-- Vite подключает resources/js/app.js, который импортирует burger.js --}}
 
 @stack('scripts')
 </body>

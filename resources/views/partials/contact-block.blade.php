@@ -3,7 +3,7 @@
         <h1>Контакты</h1>
         <div class="container contact-grid">
             <div class="contact-image">
-                <img src="{{ asset('/images/car.jpg') }}" alt="Контакты A.K detailing">
+                <img src="{{ asset('/images/car.webp') }}" alt="Контакты A.K detailing">
             </div>
             <div class="contact-info">
                 <h3>Свяжитесь с нами</h3>
@@ -55,7 +55,7 @@
 
                 <div class="contact-item">
                     <!-- Standard VK logo (Wikimedia) -->
-                    <img class="icon vk-icon" src="https://upload.wikimedia.org/wikipedia/commons/2/21/VK.com-logo.svg" width="18" height="18" alt="ВКонтакте" />
+{{--                    <img class="icon vk-icon" src="https://upload.wikimedia.org/wikipedia/commons/2/21/VK.com-logo.svg" width="18" height="18" alt="ВКонтакте" />--}}
                      <div>
                          <div class="label">ВКонтакте</div>
                          <div class="value">
