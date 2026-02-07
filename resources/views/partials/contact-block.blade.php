@@ -16,6 +16,7 @@
                     <div>
                         <div class="label">Адрес</div>
                         <div class="value">@if(!empty($settings['address'])) {{ $settings['address'] }} @endif</div>
+                        <div><a href="/contacts">Мы на карте</a></div>
                     </div>
                 </div>
 

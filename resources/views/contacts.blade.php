@@ -45,13 +45,11 @@
                     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#bookingModal">Записаться</button>
                 </div>
             </div>
-
-            <div class="flex-fill" style="min-height:300px;">
-                <div id="yandex-map" data-coords="{{ $settings['map_coords'] }}" style="width:100%; height:100%; min-height:300px; border-radius:10px; overflow:hidden;"></div>
-            </div>
         </div>
     </div>
 </div>
+{{-- Подключаем partial с картой --}}
+    @include('partials.map-block')
 @endsection
 
 @push('head')

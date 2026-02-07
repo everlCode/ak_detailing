@@ -39,22 +39,31 @@
 
             // Инициализация карты
             function initMap() {
-                const coords = (mapEl.dataset.coords || '58.578176,49.670084').split(',');
+                const coords = (mapEl.dataset.coords || '58.578203, 49.670062').split(',');
                 const lat = parseFloat(coords[0]);
                 const lon = parseFloat(coords[1]);
 
                 ymaps.ready(() => {
                     const map = new ymaps.Map('yandex-map', {
                         center: [lat, lon],
-                        zoom: 16,
+                        zoom: 15,
                         controls: ['zoomControl', 'geolocationControl']
                     });
 
-                    new ymaps.Placemark([lat, lon], {
-                        hintContent: 'Наша студия',
-                        balloonContent: 'Добро пожаловать!'
-                    }).addTo(map);
+                    const placemark = new ymaps.Placemark(
+                        [lat, lon],
+                        {
+                            hintContent: 'Наша студия',
+                            balloonContent: 'Добро пожаловать!'
+                        },
+                        {
+                            preset: 'islands#redIcon'
+                        }
+                    );
+
+                    map.geoObjects.add(placemark);
                 });
+
             }
 
             // Загружаем API только когда DOM готов

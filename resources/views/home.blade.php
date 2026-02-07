@@ -25,9 +25,6 @@
     'settings' => $settings
 ])
 
-    {{-- Подключаем partial с картой --}}
-{{--    @include('partials.map-block')--}}
-
 @endsection
 
 @section('services-dropdown')
