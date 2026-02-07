@@ -2,7 +2,7 @@
     <div class="container footer-grid">
         <div class="footer-brand">
             <a href="{{ url('/') }}" class="footer-logo">
-                <img src="{{ asset('/images/logo.png') }}" alt="A.K detailing" />
+                <img src="{{  img('images/logo.webp', 80, 80)  }}" alt="A.K detailing" />
             </a>
         </div>
 

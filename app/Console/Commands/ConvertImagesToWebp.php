@@ -44,18 +44,10 @@ class ConvertImagesToWebp extends Command
                 try {
                     $manager
                         ->read($filePath)
-                        ->resize(1200, null, function ($c) {
-                            $c->aspectRatio();
-                            $c->upsize();
-                        })
-                        ->toWebp(75)
+                        ->toWebp(70)
                         ->save($webpPath);
 
                     $this->info('Converted: ' . $filePath);
-
-                    // ❗ если нужно удалить оригинал — раскомментируй
-                    // unlink($filePath);
-
                 } catch (\Throwable $e) {
                     $this->error('Error with ' . $filePath . ': ' . $e->getMessage());
                 }

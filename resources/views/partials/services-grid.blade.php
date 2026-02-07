@@ -7,12 +7,11 @@
                     <div class="card h-100 service-card">
                         @php
                             $rawPath = $service->mainImage && $service->mainImage->path ? $service->mainImage->path : 'images/car.jpg';
-                            $imgPath = file_exists(public_path($rawPath)) ? asset($rawPath) : asset('images/car.jpg');
                             $imgAlt = $service->mainImage && $service->mainImage->alt ? $service->mainImage->alt : $service->name;
                         @endphp
 
-                        @if(!empty($imgPath))
-                            <img src="{{ $imgPath }}" class="card-img-top optimized-img" alt="{{ $imgAlt }}">
+                        @if(!empty($rawPath))
+                            <img src="{{ img($rawPath, 324, 324) }}" class="card-img-top optimized-img" alt="{{ $imgAlt }}">
                         @endif
                         <div class="card-body d-flex flex-column">
                             <h5 class="card-title">{{ $service->name }}</h5>

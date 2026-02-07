@@ -26,7 +26,7 @@
 ])
 
     {{-- Подключаем partial с картой --}}
-    @include('partials.map-block')
+{{--    @include('partials.map-block')--}}
 
 @endsection
 

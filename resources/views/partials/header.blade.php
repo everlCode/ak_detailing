@@ -2,9 +2,9 @@
     <div class="container">
         <div class="menu">
             <div class="logotype">
-                <a itemprop="url" href="/"><img itemprop="logo" src="/images/logo.webp" title="Логотип" alt="Логотип"></a>
+                <a itemprop="url" href="/"><img src="{{ img('images/logo.webp', 80, 80) }}" itemprop="logo"  title="Логотип" alt="Логотип"></a>
             </div>
-
+            <img src="" alt="">
             <div class="nav_bar">
                 <nav class="menu">
                     <ul class="menu__list">
@@ -79,7 +79,7 @@
     </div>
 </header>
 
-<script>
+<script defer>
     document.addEventListener('DOMContentLoaded', function () {
         // Desktop toggles (main menu)
         document.querySelectorAll('.has-submenu').forEach(li => {

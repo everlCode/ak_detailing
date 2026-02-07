@@ -65,6 +65,7 @@ tasks:
         --exclude-glob vendor/** \
         --exclude-glob tests/** \
         --exclude-glob storage/** \
+        --exclude-glob public/images/ \
         --exclude-glob .idea/** \
         --exclude .env \
         --exclude .composer.lock \
