@@ -28,12 +28,11 @@
                         <a href="{{ $tgHref }}" target="_blank" rel="noopener" class="fc-link">{{ $tg }}</a>
                     @endif
                 </li>
+                @if(!empty($settings['address']))
                 <li class="footer-contact-item">
-                    <span class="fc-label">Адрес:</span>
-                    @if(!empty($settings['address']))
-                        <span class="fc-link">{{ $settings['address'] }}</span>
-                    @endif
+                    <span class="fc-label">Адрес: </span> {{ $settings['address'] }}
                 </li>
+                @endif
             </ul>
         </div>
     </div>

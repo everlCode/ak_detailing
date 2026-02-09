@@ -1046,7 +1046,8 @@ h2 {
 .footer-contact-item {
     display: flex;
     gap: 8px;
-    align-items: center;
+    align-items: flex-start;
+    width: 100%;
 }
 
 .fc-label {
