@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Детейлинг в Кирове — химчистка, полировка, керамика | A.K Detailing')
+@section('title', 'Детейлинг в Кирове — химчистка, полировка, керамика')
 
 @section('content')
 
@@ -10,7 +10,7 @@
             <h1 class="hero-title">
                 Качественный детейлинг в Кирове
             </h1>
-            <p class="hero-subtitle">Выполним услугу быстро и качественно</p>
+            <p class="hero-subtitle">Выполним услугу быстро и качественно. Запишитесь прямо сейчас, мы свяжемся с вами и проконсультируем!</p>
             <button type="button" class="hero-cta btn btn-primary" data-bs-toggle="modal" data-bs-target="#bookingModal" data-bs-service="">Записаться</button>
         </div>
     </section>

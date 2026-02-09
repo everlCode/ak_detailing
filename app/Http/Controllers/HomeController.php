@@ -23,7 +23,8 @@ class HomeController extends Controller
         $settings = Cache::remember('settings', now()->addHours(6), function () {
             return Setting::all();
         });
-        view()->share('metaDescription', 'Профессиональные детейлинг услуги в Кирове: химчистка салона, полировка кузова, керамика. Запись онлайн.');
+        view()->share('metaDescription', 'Профессиональные детейлинг услуги в Кирове: химчистка салона, полировка кузова, керамика. Район Чистых прудов. Запись онлайн.');
+
         return view('home', ['services' => $services, 'settings' => $settings]);
     }
 }
