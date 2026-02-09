@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Service;
-use Illuminate\Http\Request;
 
 class ServiceController extends Controller
 {
@@ -16,6 +15,7 @@ class ServiceController extends Controller
     public function show(string $alias)
     {
         $service = Service::where('alias', $alias)->firstOrFail();
+        view()->share('metaDescription', $service->short_description);
 
         return view('services.show', [
             'service' => $service,
