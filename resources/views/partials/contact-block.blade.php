@@ -1,6 +1,6 @@
 <div class="contact-block">
     <div class="container">
-        <h1>Контакты</h1>
+        <h2>Контакты</h2>
         <div class="container contact-grid">
             <div class="contact-image">
                 <img src="{{ asset('/images/car.webp') }}" alt="Контакты A.K detailing">
