@@ -28,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
         }
 
         // Передаём services и settings в header и footer
-        View::composer(['partials.header', 'partials.footer', 'partials.contact-block', 'partials.booking-modal'], function ($view) {
+        View::composer(['layouts.app', 'partials.header', 'partials.footer', 'partials.contact-block', 'partials.booking-modal'], function ($view) {
             try {
                 $services = cache()->remember('service_all', 60 * 60 * 24, function () {
                     return Service::all();

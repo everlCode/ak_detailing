@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Главная')
+@section('title', 'Детейлинг в Кирове — химчистка, полировка, керамика | A.K Detailing')
 
 @section('content')
 
@@ -8,10 +8,9 @@
     <section class="hero" style="background-image: url('{{ asset('images/car.webp') }}'), linear-gradient(180deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.65)); background-blend-mode: overlay;">
         <div class="container hero-content">
             <h1 class="hero-title">
-                <span class="hero-title--big">A.K</span>
-                <span class="hero-title--small">Detailing studio</span>
+                Качественный детейлинг в Кирове
             </h1>
-            <p class="hero-subtitle">Профессиональная детейлинг студия в Кирове</p>
+            <p class="hero-subtitle">Выполним услугу быстро и качественно</p>
             <button type="button" class="hero-cta btn btn-primary" data-bs-toggle="modal" data-bs-target="#bookingModal" data-bs-service="">Записаться</button>
         </div>
     </section>

@@ -4,7 +4,7 @@
         <div class="row g-3">
             @forelse($services as $service)
                 <div class="col-12 col-sm-6 col-lg-3">
-                    <div class="card h-100 service-card">
+                    <article class="card h-100 service-card">
                         @php
                             $rawPath = $service->mainImage && $service->mainImage->path ? $service->mainImage->path : 'images/car.jpg';
                             $imgAlt = $service->mainImage && $service->mainImage->alt ? $service->mainImage->alt : $service->name;
@@ -25,7 +25,7 @@
                                 <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#bookingModal" data-bs-service="{{ $service->id }}">Записаться</button>
                             </div>
                         </div>
-                    </div>
+                    </article>
                 </div>
             @empty
                 <div class="col-12"><p>Услуг пока нет.</p></div>

@@ -2,11 +2,19 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>@yield('title', 'Детейлинг услуги')</title>
+    <title>@yield('title', 'Детейлинг услуги в Кирове')</title>
     <meta name="description" content="{{ $metaDescription ?? 'Описание по умолчанию' }}">
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta itemprop="name" content="A.K Detailing">
+    @if ($settings['phone'])
+        <meta itemprop="telephone" content="{{ $settings['phone'] }}">
+    @endif
+    @if ($settings['address'])
+        <meta itemprop="address" content="{{ $settings['address'] }}">
+    @endif
+
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="{{ asset('images/meta/favicon.ico') }}">
