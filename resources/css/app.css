@@ -39,6 +39,9 @@ section {
 
 /* Responsive adjustments */
 @media (max-width: 991px) {
+    section {
+        margin-top: 10px;
+    }
     .hero-title--big {
         font-size: 48px;
     }
@@ -139,17 +142,11 @@ section {
     object-fit: contain;
 }
 
-a, button {
-    color: #fff;
-}
-
-button {
+.header_btn {
     padding: 10px 20px;
-    background-color: goldenrod;
-    border: 2px solid black;
-    border-radius: 5px;
-    color: #000;
-    font-family: "Russo One", sans-serif;
+    background-color: #000;
+    border: 1px solid #fff;
+    color: #fff;
 }
 
 button:hover {
@@ -323,7 +320,7 @@ body {
         pointer-events: none;
         transition: transform 0.8s cubic-bezier(.2, .9, .3, 1), opacity 0.28s ease;
         width: 100%;
-        z-index: 2000; /* above header */
+        z-index: 2000;
     }
 
     .mobile-menu.active {
@@ -458,8 +455,6 @@ body {
     }
 }
 
-
-/* Hero Section */
 .hero {
     position: relative;
     height: 100vh; /* full viewport height */
@@ -486,6 +481,8 @@ body {
     display: block;
     margin: 0 0 12px 0;
     line-height: 1;
+    font-size: 55px;
+    font-weight: 600;
 }
 
 .hero-title--big {
@@ -505,7 +502,8 @@ body {
 }
 
 .hero-subtitle {
-    font-size: 20px;
+    font-size: 23px;
+    font-style: italic;
     margin-top: 12px;
     margin-bottom: 20px;
     color: #fff;
@@ -700,6 +698,14 @@ h2 {
 
 /* Адаптив: ещё чуть меньше кнопки на мобильных */
 @media (max-width: 768px) {
+    .hero-title {
+        font-size: 32px;
+    }
+
+    .hero-subtitle {
+        font-size: 20px;
+    }
+
     .services-section {
         padding: 20px 0;
     }
@@ -1270,10 +1276,7 @@ h2 {
 }
 
 /* Стили для кнопок "Записаться" (триггер модалки) */
-button[data-bs-target="#bookingModal"],
-a[data-bs-target="#bookingModal"],
-button[data-bs-toggle="modal"][data-bs-target="#bookingModal"],
-a[data-bs-toggle="modal"][data-bs-target="#bookingModal"] {
+.button {
     /* Внешний вид: затемнённый оранжевый градиент + заметная обводка */
     border-radius: 12px; /* закругления */
     border: 2px solid #8a3b00; /* тёмная обводка */
