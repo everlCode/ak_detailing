@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y \
     curl \
     libpq-dev \
     libicu-dev \
+    libzip-dev zip \
     && rm -rf /var/lib/apt/lists/*
 
 # ВАЖНО: configure gd
@@ -21,7 +22,7 @@ RUN docker-php-ext-configure gd \
         --with-jpeg \
         --with-webp \
     && docker-php-ext-install \
-        pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd intl
+        pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd intl  zip
 
 COPY --from=composer:2.5 /usr/bin/composer /usr/bin/composer
 
