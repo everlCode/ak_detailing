@@ -3,7 +3,7 @@
         <h2 class="mb-4">Наши услуги</h2>
         <div class="row g-3">
             @forelse($services as $service)
-                <div class="col-12 col-sm-6 col-lg-3">
+                <div class="col-12 col-sm-6 col-lg-4">
                     <article class="card h-100 service-card">
                         @php
                             $rawPath = $service->mainImage && $service->mainImage->path ? $service->mainImage->path : 'images/car.jpg';

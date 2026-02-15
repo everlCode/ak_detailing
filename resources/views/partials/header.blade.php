@@ -34,7 +34,7 @@
 
                         <!-- trigger booking modal -->
                         <li class="menu__item">
-                            <button type="button" class="header_btn" data-bs-toggle="modal" data-bs-target="#bookingModal" data-bs-service="">Записаться</button>
+                            <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#bookingModal" data-bs-service="">Записаться</button>
                         </li>
                     </ul>
                     <!-- Burger button for tablet/mobile -->
