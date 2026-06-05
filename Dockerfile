@@ -14,6 +14,8 @@ RUN apt-get update && apt-get install -y \
     libpq-dev \
     libicu-dev \
     libzip-dev zip \
+    nodejs \
+    npm \
     && rm -rf /var/lib/apt/lists/*
 
 # ВАЖНО: configure gd
@@ -24,12 +26,14 @@ RUN docker-php-ext-configure gd \
     && docker-php-ext-install \
         pdo_mysql pdo_pgsql mbstring exif pcntl bcmath gd intl  zip
 
+RUN pecl install xdebug && docker-php-ext-enable xdebug
+
 COPY --from=composer:2.5 /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www
 COPY . .
 
-RUN composer install
+RUN composer install && npm install
 
 RUN chown -R www-data:www-data /var/www \
     && chmod -R 755 /var/www/storage
