@@ -2,6 +2,50 @@
 
 @section('title', $service->name . ' в Кирове — A.K Detailing')
 
+@push('head')
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "{{ $service->name }}",
+    "description": "{{ $service->short_description }}",
+    "url": "{{ url()->current() }}",
+    "provider": {
+        "@type": "AutoBodyShop",
+        "@id": "{{ config('app.url') }}#organization",
+        "name": "A.K Detailing"
+    }@if(!empty($service->price) && $service->price > 0),
+    "offers": {
+        "@type": "Offer",
+        "priceCurrency": "RUB",
+        "price": "{{ (int)$service->price }}",
+        "availability": "https://schema.org/InStock"
+    }@endif
+
+}
+</script>
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Главная",
+            "item": "{{ url('/') }}"
+        },
+        {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "{{ $service->name }}",
+            "item": "{{ url()->current() }}"
+        }
+    ]
+}
+</script>
+@endpush
+
 @section('content')
 
     {{-- Hero --}}

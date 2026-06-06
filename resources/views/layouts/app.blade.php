@@ -2,11 +2,34 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    @php
+        $pageDescription = $metaDescription ?? 'Профессиональный детейлинг автомобилей в Кирове. Полировка, нанокерамика, химчистка салона, бронирование плёнкой — A.K Detailing.';
+        $ogImage         = !empty($settings['hero_image']) ? asset($settings['hero_image']) : asset('images/og-default.jpg');
+        $canonicalUrl    = url()->current();
+    @endphp
+
     <title>@yield('title', 'Детейлинг услуги в Кирове')</title>
-    <meta name="description" content="{{ $metaDescription ?? 'Описание по умолчанию' }}">
+    <meta name="description" content="{{ $pageDescription }}">
+
+    @if(!empty($noindex))
+    <meta name="robots" content="noindex, nofollow">
+    @endif
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    {{-- Open Graph --}}
+    <meta property="og:type"         content="website">
+    <meta property="og:site_name"    content="A.K Detailing">
+    <meta property="og:locale"       content="ru_RU">
+    <meta property="og:title"        content="@yield('title', 'Детейлинг услуги в Кирове')">
+    <meta property="og:description"  content="{{ $pageDescription }}">
+    <meta property="og:url"          content="{{ $canonicalUrl }}">
+    <meta property="og:image"        content="{{ $ogImage }}">
+    <meta property="og:image:width"  content="1200">
+    <meta property="og:image:height" content="630">
+
+    {{-- Microdata --}}
     <meta itemprop="name" content="A.K Detailing">
     @if (!empty($settings['phone']))
         <meta itemprop="telephone" content="{{ $settings['phone'] }}">
@@ -15,13 +38,43 @@
         <meta itemprop="address" content="{{ $settings['address'] }}">
     @endif
 
-    <link rel="canonical" href="{{ url()->current() }}">
+    <link rel="canonical" href="{{ $canonicalUrl }}">
 
     <!-- Favicon -->
     @php $faviconUrl = asset($settings['favicon'] ?? 'images/meta/favicon.ico'); @endphp
     <link rel="icon" href="{{ $faviconUrl }}">
     <link rel="shortcut icon" href="{{ $faviconUrl }}">
     <link rel="apple-touch-icon" href="{{ asset('images/meta/apple-touch-icon.png') }}">
+
+    {{-- JSON-LD LocalBusiness --}}
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "AutoBodyShop",
+        "@id": "{{ config('app.url') }}#organization",
+        "name": "A.K Detailing",
+        "description": "Профессиональный детейлинг автомобилей в Кирове. Полировка, нанокерамика, химчистка салона, бронирование плёнкой.",
+        "url": "{{ config('app.url') }}",
+        "logo": "{{ !empty($settings['logo']) ? asset($settings['logo']) : asset('images/logo.webp') }}",
+        "image": "{{ $ogImage }}",
+        "priceRange": "₽₽",
+        "telephone": "{{ $settings['phone'] ?? '' }}",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Киров",
+            "addressRegion": "Кировская область",
+            "addressCountry": "RU",
+            "streetAddress": "{{ $settings['address'] ?? '' }}"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "58.6035",
+            "longitude": "49.6679"
+        }@if(!empty($settings['vk_link'])),
+        "sameAs": ["{{ $settings['vk_link'] }}"]@endif
+
+    }
+    </script>
 
     {{-- CSS --}}
     @vite(['resources/css/bootstrap.min.css'])

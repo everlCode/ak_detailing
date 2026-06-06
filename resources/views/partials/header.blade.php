@@ -49,7 +49,7 @@
                     <button class="mobile-menu__close" aria-label="Закрыть меню">✕</button>
                     <ul class="mobile-menu__list">
                         <li class="mobile-menu__item">
-                            <a href="#">Главная</a>
+                            <a href="{{ url('/') }}">Главная</a>
                         </li>
 
                         <li class="mobile-menu__item has-submenu open">

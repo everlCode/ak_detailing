@@ -11,7 +11,7 @@ class ImageUploadController extends Controller
 {
     public function showForm()
     {
-        return view('images.upload');
+        return view('images.upload', ['noindex' => true]);
     }
 
     public function store(Request $request)

@@ -25,6 +25,9 @@ class ContactsController extends Controller
                 ->toArray();
         });
 
+        $address = $settings['address'] ?? 'г. Киров';
+        view()->share('metaDescription', "Контакты A.K Detailing — профессиональный детейлинг в Кирове. Адрес: {$address}. Телефон, ВКонтакте, онлайн-запись.");
+
         return view('contacts', ['settings' => $settings, 'services' => $services]);
     }
 }
