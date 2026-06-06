@@ -33,22 +33,30 @@ class ServiceForm
                                     )
                                     ->multiple(false),
 
-                                TextInput::make('name')->required(),
+                                TextInput::make('name')
+                                    ->label('Название')
+                                    ->required(),
                                 TextInput::make('price')
+                                    ->label('Цена')
                                     ->required()
                                     ->numeric()
                                     ->default(0.0)
                                     ->prefix('р.'),
-                                TextInput::make('alias')->required(),
-                                RichEditor::make('description')->columnSpanFull(),
-                                Textarea::make('short_description')->columnSpanFull(),
+                                TextInput::make('alias')
+                                    ->label('Алиас')
+                                    ->required(),
+                                RichEditor::make('description')
+                                    ->label('Описание')
+                                    ->columnSpanFull(),
+                                Textarea::make('short_description')
+                                    ->label('Краткое описание')
+                                    ->columnSpanFull(),
                             ]),
 
                         Tab::make('Примеры работ')
                             ->schema([
                                 Repeater::make('exampleImages')
                                     ->label('Примеры работ')
-                                    ->relationship('exampleImages')
                                     ->schema([
                                         FileUpload::make('path')
                                             ->label('Фото')
@@ -58,19 +66,15 @@ class ServiceForm
                                             ->directory(fn ($record, $get) =>
                                                 'images/services/' . Str::slug($record?->alias ?? $get('alias') ?? 'service') . '/examples'
                                             )
-                                            ->required(),
+                                            ->required()
+                                            ->columnSpanFull(),
+                                        TextInput::make('alt')
+                                            ->label('Alt текст')
+                                            ->placeholder('Описание фото для поисковиков')
+                                            ->columnSpanFull(),
                                     ])
-                                    ->createItemButtonLabel('Добавить фото')
-                                    ->columns(1)
-                                    ->mutateRelationshipDataBeforeCreateUsing(function (array $data, $get) {
-                                        $name = $get('name') ?? 'Service';
-                                        return [
-                                            ...$data,
-                                            'alt'   => $name,
-                                            'title' => $name,
-                                            'type'  => 'example',
-                                        ];
-                                    }),
+                                    ->addActionLabel('Добавить фото')
+                                    ->columns(1),
                             ]),
                     ]),
             ]); // <--- важно поставить точку с запятой

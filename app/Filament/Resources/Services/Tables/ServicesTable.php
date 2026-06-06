@@ -16,17 +16,22 @@ class ServicesTable
         return $table
             ->columns([
                 TextColumn::make('name')
+                    ->label('Название')
                     ->searchable(),
                 TextColumn::make('price')
-                    ->money()
+                    ->label('Цена')
+                    ->money('RUB')
                     ->sortable(),
                 TextColumn::make('alias')
+                    ->label('Алиас')
                     ->searchable(),
                 TextColumn::make('created_at')
+                    ->label('Создано')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
+                    ->label('Обновлено')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

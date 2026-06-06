@@ -11,20 +11,27 @@ class ServiceInfolist
     {
         return $schema
             ->components([
-                TextEntry::make('name'),
+                TextEntry::make('name')
+                    ->label('Название'),
                 TextEntry::make('price')
-                    ->money(),
-                TextEntry::make('alias'),
+                    ->label('Цена')
+                    ->money('RUB'),
+                TextEntry::make('alias')
+                    ->label('Алиас'),
                 TextEntry::make('description')
+                    ->label('Описание')
                     ->placeholder('-')
                     ->columnSpanFull(),
                 TextEntry::make('short_description')
+                    ->label('Краткое описание')
                     ->placeholder('-')
                     ->columnSpanFull(),
                 TextEntry::make('created_at')
+                    ->label('Создано')
                     ->dateTime()
                     ->placeholder('-'),
                 TextEntry::make('updated_at')
+                    ->label('Обновлено')
                     ->dateTime()
                     ->placeholder('-'),
             ]);

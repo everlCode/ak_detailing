@@ -3,10 +3,10 @@
 namespace App\Filament\Resources\Services\Pages;
 
 use App\Filament\Resources\Services\ServiceResource;
+use App\Models\Image;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\ViewAction;
 use Filament\Resources\Pages\EditRecord;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\File;
 
 class EditService extends EditRecord
@@ -16,70 +16,70 @@ class EditService extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            ViewAction::make(),
-            DeleteAction::make(),
+            ViewAction::make()->label('Просмотр'),
+            DeleteAction::make()->label('Удалить'),
         ];
     }
 
     protected function mutateFormDataBeforeFill(array $data): array
     {
         if ($this->record->mainImage?->path) {
-            $data['main_image'] = [
-                $this->record->mainImage->path
-            ];
+            $data['main_image'] = [$this->record->mainImage->path];
         }
+
+        $data['exampleImages'] = $this->record->exampleImages
+            ->map(fn (Image $img) => [
+                'path' => [$img->path],
+                'alt'  => $img->alt ?? '',
+            ])
+            ->toArray();
 
         return $data;
     }
 
     protected function afterSave(): void
     {
-        \Log::info('=== afterSave START ===');
-
-        // 1️⃣ Посмотрим, что вообще в состоянии формы
         $formState = $this->form->getState();
-        \Log::info('Form state', $formState);
+        \Log::debug('afterSave formState', $formState);
 
-        // 2️⃣ Получаем main_image
-        $files = $formState['main_image'] ?? null;
-        \Log::info('Raw main_image from state', ['files' => $files]);
+        // Сохранение главного изображения
+        $mainFiles = $formState['main_image'] ?? null;
+        $mainFile = is_array($mainFiles) ? ($mainFiles[0] ?? null) : $mainFiles;
 
-        // 3️⃣ Если массив, берём первый элемент
-        $file = is_array($files) ? ($files[0] ?? null) : $files;
-        \Log::info('File to save', ['file' => $file]);
-
-        // 4️⃣ Проверяем, есть ли файл
-        if ($file) {
+        if ($mainFile) {
             $this->record->mainImage()->updateOrCreate(
                 ['type' => 'main'],
-                [
-                    'path' => $file,
-                    'type' => 'main',
-                ]
+                ['path' => $mainFile, 'type' => 'main'],
             );
-            \Log::info('Image saved to DB', ['path' => $file]);
-        } else {
-            \Log::warning('No file found to save');
         }
 
-        // 5️⃣ Очистка кеша
-        $alias = $this->record->alias;
-        $cachePath = public_path("cache/images/services/{$alias}");
-        \Log::info('Cache path', ['path' => $cachePath]);
+        // Синхронизация примеров работ: удаляем старые, создаём из формы
+        $this->record->exampleImages()->delete();
 
-        \Log::info('Cache files in directory', ['files' => \File::files($cachePath)]);
+        foreach ($formState['exampleImages'] ?? [] as $item) {
+            $paths = $item['path'] ?? null;
+            $path = is_array($paths) ? ($paths[0] ?? null) : $paths;
 
-        if (\File::exists($cachePath)) {
-            $files = \File::files($cachePath);
-            foreach ($files as $file) {
-                \File::delete($file);
+            if ($path) {
+                Image::create([
+                    'path'         => $path,
+                    'alt'          => $item['alt'] ?? null,
+                    'type'         => 'example',
+                    'reference_id' => $this->record->id,
+                ]);
             }
-            \Log::info('Cache files deleted', ['files_count' => count($files)]);
-        } else {
-            \Log::info('Cache directory does not exist', ['path' => $cachePath]);
         }
+
+        // Очистка кеша изображений
+        $cachePath = public_path("cache/images/services/{$this->record->alias}");
+
+        if (File::exists($cachePath)) {
+            foreach (File::files($cachePath) as $file) {
+                File::delete($file);
+            }
+        }
+
         \Artisan::call('cache:clear');
-        \Log::info('=== afterSave END ===');
     }
 
 

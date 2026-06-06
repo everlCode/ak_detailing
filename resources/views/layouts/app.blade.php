@@ -15,6 +15,7 @@
         <meta itemprop="address" content="{{ $settings['address'] }}">
     @endif
 
+    <link rel="canonical" href="{{ url()->current() }}">
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="{{ asset('images/meta/favicon.ico') }}">
