@@ -36,7 +36,9 @@ COPY . .
 RUN composer install && npm install
 
 RUN chown -R www-data:www-data /var/www \
-    && chmod -R 755 /var/www/storage
+    && chmod -R 755 /var/www/storage \
+    && mkdir -p /var/www/public_html/cache \
+    && chmod 777 /var/www/public_html/cache
 
 EXPOSE 9000
 CMD ["php-fpm"]

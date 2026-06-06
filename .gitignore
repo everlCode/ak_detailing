@@ -1,9 +1,9 @@
 /.phpunit.cache
 /node_modules
-/public/hot
-/public/storage
-/public/images
-/public/cache
+/public_html/hot
+/public_html/storage
+/public_html/images
+/public_html/cache
 /storage/*.key
 /vendor
 .env

@@ -2,7 +2,7 @@
     <div class="container">
         <div class="menu">
             <div class="logotype">
-                <a itemprop="url" href="/"><img src="{{ img('images/logo.webp', 80, 80) }}" itemprop="logo"  title="Логотип" alt="Логотип"></a>
+                <a itemprop="url" href="/"><img src="{{ img($settings['logo'] ?? 'images/logo.webp', 80, 80) }}" itemprop="logo"  title="Логотип" alt="Логотип"></a>
             </div>
             <img src="" alt="">
             <div class="nav_bar">

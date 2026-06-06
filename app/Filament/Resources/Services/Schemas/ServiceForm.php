@@ -28,6 +28,7 @@ class ServiceForm
                                     ->disk('public_root')
                                     ->image()
                                     ->imageEditor()
+                                    ->imagePreviewHeight('120')
                                     ->directory(fn ($record, $get) =>
                                         'images/services/' . Str::slug($record?->alias ?? $get('alias') ?? 'service')
                                     )
@@ -63,6 +64,7 @@ class ServiceForm
                                             ->disk('public_root')
                                             ->image()
                                             ->imageEditor()
+                                            ->imagePreviewHeight('120')
                                             ->directory(fn ($record, $get) =>
                                                 'images/services/' . Str::slug($record?->alias ?? $get('alias') ?? 'service') . '/examples'
                                             )
