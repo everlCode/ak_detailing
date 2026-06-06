@@ -7,6 +7,8 @@ use App\Models\Setting;
 use BackedEnum;
 use Filament\Actions\Action;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
 use Filament\Schemas\Components\Actions;
@@ -33,7 +35,10 @@ class HomeSettings extends Page
         $logo         = Setting::get('logo');
         $heroImage    = Setting::get('hero_image');
         $contactImage = Setting::get('contact_image');
-        $portfolio    = Image::where('type', 'portfolio')->orderBy('id')->pluck('path')->toArray();
+        $portfolio = Image::where('type', 'portfolio')->orderBy('id')
+            ->get()
+            ->map(fn ($img) => ['path' => [$img->path], 'alt' => $img->alt ?? ''])
+            ->toArray();
 
         $this->form->fill([
             'logo'             => $logo         ? [$logo]         : [],
@@ -81,15 +86,28 @@ class HomeSettings extends Page
             Section::make('Примеры работ')
                 ->description('Фотографии отображаются в галерее на главной странице.')
                 ->schema([
-                    FileUpload::make('portfolio_images')
+                    Repeater::make('portfolio_images')
                         ->label('Фотографии')
-                        ->disk('public_root')
-                        ->directory('images/portfolio')
-                        ->image()
-                        ->multiple()
+                        ->schema([
+                            FileUpload::make('path')
+                                ->label('Фото')
+                                ->disk('public_root')
+                                ->directory('images/portfolio')
+                                ->image()
+                                ->imageEditor()
+                                ->imagePreviewHeight('120')
+                                ->required()
+                                ->columnSpanFull(),
+                            TextInput::make('alt')
+                                ->label('Alt текст')
+                                ->placeholder('Описание фото для поисковиков')
+                                ->required()
+                                ->columnSpanFull(),
+                        ])
+                        ->addActionLabel('Добавить фото')
+                        ->columns(1)
                         ->reorderable()
-                        ->imagePreviewHeight('120')
-                        ->panelLayout('grid'),
+                        ->collapsible(),
                 ]),
         ]);
     }
@@ -134,9 +152,15 @@ class HomeSettings extends Page
 
         // Синхронизируем портфолио
         Image::where('type', 'portfolio')->delete();
-        foreach ($data['portfolio_images'] ?? [] as $path) {
+        foreach ($data['portfolio_images'] ?? [] as $item) {
+            $paths = $item['path'] ?? null;
+            $path  = is_array($paths) ? ($paths[0] ?? null) : $paths;
             if ($path) {
-                Image::create(['path' => $path, 'type' => 'portfolio']);
+                Image::create([
+                    'path' => $path,
+                    'alt'  => $item['alt'] ?? null,
+                    'type' => 'portfolio',
+                ]);
             }
         }
         cache()->forget('portfolio_images');
