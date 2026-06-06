@@ -17,6 +17,7 @@ header {
 /* Layout helpers: make footer stick to bottom and prevent content overlapping fixed header */
 html, body {
     height: 100%;
+    overflow-x: hidden;
 }
 
 body {
@@ -842,7 +843,11 @@ h2 {
 }
 
 @media (max-width: 640px) {
-    .portfolio-swiper-wrap { padding: 0 36px; }
+    .portfolio-swiper-wrap { padding: 0 28px; }
+}
+
+@media (max-width: 380px) {
+    .portfolio-swiper-wrap { padding: 0 22px; }
 }
 
 .portfolio-swiper {
@@ -1153,7 +1158,21 @@ h2 {
 
     .contact-actions {
         justify-content: center;
+        flex-direction: column;
+        align-items: center;
     }
+
+    .contact-actions .btn-primary,
+    .contact-actions .btn-outline {
+        width: 100%;
+        max-width: 320px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 380px) {
+    .contact-info h3 { font-size: 1.35rem; }
+    .hero-cta { padding: 14px 24px; font-size: 0.88rem; }
 }
 
 /* Map block styles */
@@ -1232,8 +1251,7 @@ h2 {
     display: flex;
     gap: 6px;
     align-items: baseline;
-    white-space: nowrap;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
 }
 
 .fc-label {
@@ -1363,6 +1381,8 @@ h2 {
 @media (max-width: 640px) {
     .svc-hero__title { font-size: 1.75rem; }
     .svc-hero { min-height: 44vh; }
+    .svc-hero__actions { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .svc-hero__content { padding-bottom: 32px; }
 }
 
 /* Body layout */
@@ -1537,6 +1557,18 @@ h2 {
 
 @media (max-width: 640px) {
     .svc-cta-banner__inner { flex-direction: column; text-align: center; }
+    .svc-cta-banner { padding: 32px 0; }
+    .svc-cta-banner .hero-cta { width: 100%; max-width: 320px; }
+}
+
+/* Global mobile spacing */
+@media (max-width: 640px) {
+    .services-section  { padding: 36px 0; }
+    .portfolio-section { padding: 36px 0; }
+    .svc-body          { padding: 32px 0; }
+    .svc-examples      { padding: 0 0 32px; }
+    .contact-block     { padding: 36px 0; }
+    .site-footer       { margin-top: 0; }
 }
 
 /* Dropdown styles */
