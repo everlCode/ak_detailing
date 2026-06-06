@@ -2,6 +2,10 @@
 
 @section('title', 'Детейлинг в Кирове — химчистка, полировка, керамика')
 
+@push('head')
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+@endpush
+
 @section('content')
 
     {{-- Баннер --}}
@@ -17,7 +21,7 @@
         </div>
     </section>
 
-    {{-- Подключаем partial со слайдером услуг --}}
+    {{-- Услуги --}}
     @include('partials.services-grid')
 
     {{-- Примеры работ --}}
@@ -28,22 +32,44 @@
                 <h2>Примеры работ</h2>
                 <span class="section-heading__line"></span>
             </div>
-            <div class="portfolio-grid">
-                @foreach($portfolio as $item)
-                    <div class="portfolio-item">
-                        <img src="{{ img($item->path, 480, 360) }}" alt="{{ $item->alt ?? 'Пример работы' }}" loading="lazy">
+        </div>
+
+        <div class="portfolio-swiper-wrap">
+            <div class="swiper portfolio-swiper">
+                <div class="swiper-wrapper">
+                    @foreach($portfolio as $item)
+                    <div class="swiper-slide portfolio-slide">
+                        <div class="portfolio-slide__inner">
+                            <img
+                                src="{{ img($item->path, 520, 380) }}"
+                                alt="{{ $item->alt ?? 'Пример работы' }}"
+                                loading="lazy"
+                                class="portfolio-slide__img"
+                            >
+                        </div>
                     </div>
-                @endforeach
+                    @endforeach
+                </div>
+
+                <button class="portfolio-nav portfolio-nav--prev" aria-label="Назад">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path d="M15 18l-6-6 6-6"/>
+                    </svg>
+                </button>
+                <button class="portfolio-nav portfolio-nav--next" aria-label="Вперёд">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path d="M9 18l6-6-6-6"/>
+                    </svg>
+                </button>
+
+                <div class="portfolio-pagination swiper-pagination"></div>
             </div>
         </div>
     </section>
     @endif
 
-    {{-- Подключаем partial с блоком контактов --}}
-    @include('partials.contact-block', [
-
-    'settings' => $settings
-])
+    {{-- Контакты --}}
+    @include('partials.contact-block', ['settings' => $settings])
 
 @endsection
 
@@ -56,5 +82,29 @@
 @endsection
 
 @push('scripts')
-
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        new Swiper('.portfolio-swiper', {
+            slidesPerView: 1,
+            spaceBetween: 12,
+            loop: true,
+            grabCursor: true,
+            autoplay: { delay: 4000, disableOnInteraction: false, pauseOnMouseEnter: true },
+            navigation: {
+                nextEl: '.portfolio-nav--next',
+                prevEl: '.portfolio-nav--prev',
+            },
+            pagination: {
+                el: '.portfolio-pagination',
+                clickable: true,
+            },
+            breakpoints: {
+                480:  { slidesPerView: 2, spaceBetween: 12 },
+                768:  { slidesPerView: 3, spaceBetween: 16 },
+                1024: { slidesPerView: 4, spaceBetween: 16 },
+            },
+        });
+    });
+</script>
 @endpush
