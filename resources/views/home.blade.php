@@ -5,7 +5,7 @@
 @section('content')
 
     {{-- Баннер / Слайдер --}}
-    <section class="hero" style="background-image: url('{{ asset('images/car.webp') }}'), linear-gradient(180deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.65)); background-blend-mode: overlay;">
+    <section class="hero" style="background-image: url('{{ asset($settings['hero_image'] ?? 'images/car.webp') }}'), linear-gradient(180deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.65)); background-blend-mode: overlay;">
         <div class="container hero-content">
             <h1 class="hero-title">
                 Качественный детейлинг в Кирове

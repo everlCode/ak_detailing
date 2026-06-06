@@ -10,6 +10,7 @@ services:
         volumes:
             - ./:/var/www
             - node_modules:/var/www/node_modules
+            - ./docker/php/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
         ports:
             - "9000:9000"
         depends_on:

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Service;
 use App\Models\Setting;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
 class HomeController extends Controller
@@ -20,8 +19,10 @@ class HomeController extends Controller
             return Service::with('mainImage')->get();
         });
 
-        $settings = Cache::remember('settings', now()->addHours(6), function () {
-            return Setting::all();
+        $settings = Cache::remember('settings_all', 60 * 60 * 24, function () {
+            return Setting::all()
+                ->mapWithKeys(fn ($item) => [$item->key => $item->value])
+                ->toArray();
         });
         view()->share('metaDescription', 'Профессиональные детейлинг услуги в Кирове: химчистка салона, полировка кузова, керамика. Район Чистых прудов. Запись онлайн.');
 

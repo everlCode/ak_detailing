@@ -28,10 +28,12 @@ class HomeSettings extends Page
 
     public function mount(): void
     {
-        $logo = Setting::get('logo');
+        $logo      = Setting::get('logo');
+        $heroImage = Setting::get('hero_image');
 
         $this->form->fill([
-            'logo' => $logo ? [$logo] : [],
+            'logo'       => $logo      ? [$logo]      : [],
+            'hero_image' => $heroImage ? [$heroImage] : [],
         ]);
     }
 
@@ -45,6 +47,14 @@ class HomeSettings extends Page
         return $schema->components([
             FileUpload::make('logo')
                 ->label('Логотип')
+                ->disk('public_root')
+                ->directory('images')
+                ->image()
+                ->imageEditor()
+                ->imagePreviewHeight('120'),
+
+            FileUpload::make('hero_image')
+                ->label('Фон главного баннера')
                 ->disk('public_root')
                 ->directory('images')
                 ->image()
@@ -80,7 +90,11 @@ class HomeSettings extends Page
         $logoFiles = $data['logo'] ?? null;
         $logo = is_array($logoFiles) ? ($logoFiles[0] ?? null) : $logoFiles;
 
+        $heroFiles = $data['hero_image'] ?? null;
+        $heroImage = is_array($heroFiles) ? ($heroFiles[0] ?? null) : $heroFiles;
+
         Setting::set('logo', $logo);
+        Setting::set('hero_image', $heroImage);
         cache()->forget('settings_all');
 
         Notification::make()
