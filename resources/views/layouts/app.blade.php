@@ -18,8 +18,9 @@
     <link rel="canonical" href="{{ url()->current() }}">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="{{ asset('images/meta/favicon.ico') }}">
-    <link rel="shortcut icon" href="{{ asset('images/meta/favicon.ico') }}">
+    @php $faviconUrl = asset($settings['favicon'] ?? 'images/meta/favicon.ico'); @endphp
+    <link rel="icon" href="{{ $faviconUrl }}">
+    <link rel="shortcut icon" href="{{ $faviconUrl }}">
     <link rel="apple-touch-icon" href="{{ asset('images/meta/apple-touch-icon.png') }}">
 
     {{-- CSS --}}
