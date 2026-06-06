@@ -10,6 +10,7 @@ export default defineConfig({
                 'resources/js/app.js',
                 'resources/js/bootstrap.bundle.min.js',
             ],
+            publicDirectory: 'public_html',
             refresh: true,
         }),
     ],
