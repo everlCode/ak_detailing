@@ -73,6 +73,7 @@ class ServiceForm
                                         TextInput::make('alt')
                                             ->label('Alt текст')
                                             ->placeholder('Описание фото для поисковиков')
+                                            ->required()
                                             ->columnSpanFull(),
                                     ])
                                     ->addActionLabel('Добавить фото')
