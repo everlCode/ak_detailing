@@ -1277,55 +1277,266 @@ h2 {
     }
 }
 
-/* Service page styles */
-.service-card {
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(2, 6, 23, 0.06);
+/* ── Service page ── */
+
+/* Hero */
+.svc-hero {
+    position: relative;
+    min-height: 52vh;
+    display: flex;
+    align-items: flex-end;
+    background: #0f172a;
+    background-size: cover;
+    background-position: center;
+    padding-top: 100px;
+    margin: 0;
 }
 
-.service-card h1 {
-    margin-top: 0;
-    font-size: 2rem;
+.svc-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.75) 100%);
 }
 
-.service-meta {
+.svc-hero__content {
+    position: relative;
+    z-index: 1;
+    padding-top: 40px;
+    padding-bottom: 48px;
+    color: #fff;
+}
+
+.svc-breadcrumb {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 16px;
+    font-family: system-ui, sans-serif;
+}
+
+.svc-breadcrumb a {
+    color: rgba(255,255,255,0.65);
+    text-decoration: none;
+    transition: color 0.18s;
+}
+
+.svc-breadcrumb a:hover {
+    color: goldenrod;
+    transform: none;
+    text-decoration: none;
+}
+
+.svc-hero__title {
+    font-family: 'Russo One', sans-serif;
+    font-size: 2.6rem;
+    font-weight: 400;
+    margin: 0 0 12px;
+    line-height: 1.15;
+    text-shadow: 0 2px 14px rgba(0,0,0,0.3);
+}
+
+.svc-hero__sub {
+    font-family: system-ui, sans-serif;
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.82);
+    margin: 0 0 24px;
+    max-width: 580px;
+    line-height: 1.6;
+}
+
+.svc-hero__actions {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    margin-bottom: 18px;
+    gap: 20px;
+    flex-wrap: wrap;
 }
 
-.price {
-    color: #0f172a;
-    font-size: 1.15rem;
+.svc-hero__price {
+    font-family: 'Russo One', sans-serif;
+    font-size: 1.35rem;
+    color: #f5c842;
+    letter-spacing: 0.5px;
 }
 
-.service-description {
+@media (max-width: 640px) {
+    .svc-hero__title { font-size: 1.75rem; }
+    .svc-hero { min-height: 44vh; }
+}
+
+/* Body layout */
+.svc-body {
+    padding: 56px 0;
+}
+
+.svc-body__grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 40px;
+    align-items: start;
+}
+
+@media (max-width: 900px) {
+    .svc-body__grid {
+        grid-template-columns: 1fr;
+    }
+    .svc-body__sidebar {
+        order: -1;
+    }
+}
+
+/* Description */
+.svc-description-content {
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    font-size: 1rem;
     color: #374151;
-    line-height: 1.7;
+    line-height: 1.8;
 }
 
-/* Service image styles */
-.service-card .service-image {
-    margin-bottom: 18px;
+.svc-description-content h2,
+.svc-description-content h3 {
+    font-family: 'Russo One', sans-serif;
+    color: #0f172a;
+    margin-top: 28px;
+    margin-bottom: 10px;
 }
 
-.service-card .service-image img {
-    display: block;
+.svc-description-content p { margin-bottom: 14px; }
+
+.svc-description-content ul,
+.svc-description-content ol {
+    padding-left: 20px;
+    margin-bottom: 14px;
+}
+
+.svc-description-content li { margin-bottom: 6px; }
+
+/* Sidebar card */
+.svc-sidebar-card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(2,6,23,0.08);
+    overflow: hidden;
+    position: sticky;
+    top: 116px;
+}
+
+.svc-sidebar-card__img {
     width: 100%;
-    height: auto;
-    max-height: 420px;
+    height: 200px;
     object-fit: cover;
-    border-radius: 10px;
+    display: block;
+}
+
+.svc-sidebar-card__body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.svc-sidebar-card__price {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.svc-sidebar-card__price-label {
+    font-size: 0.78rem;
+    color: #9ca3af;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-family: system-ui, sans-serif;
+}
+
+.svc-sidebar-card__price-value {
+    font-family: 'Russo One', sans-serif;
+    font-size: 1.5rem;
+    color: #0f172a;
+}
+
+.svc-sidebar-card__btn {
+    width: 100%;
+    text-align: center;
+}
+
+.svc-sidebar-card__hint {
+    font-family: system-ui, sans-serif;
+    font-size: 0.8rem;
+    color: #9ca3af;
+    text-align: center;
+    margin: 0;
+}
+
+/* Examples grid */
+.svc-examples {
+    padding: 0 0 56px;
+}
+
+.svc-examples-grid {
+    columns: 3;
+    column-gap: 14px;
+}
+
+.svc-example-item {
+    break-inside: avoid;
+    margin-bottom: 14px;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.svc-example-item img {
+    width: 100%;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.svc-example-item:hover img {
+    transform: scale(1.02);
 }
 
 @media (max-width: 768px) {
-    .service-meta {
-        flex-direction: column;
-        align-items: stretch;
-    }
+    .svc-examples-grid { columns: 2; }
+}
+
+@media (max-width: 480px) {
+    .svc-examples-grid { columns: 1; }
+}
+
+/* CTA banner */
+.svc-cta-banner {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    padding: 48px 0;
+    margin-bottom: 0;
+}
+
+.svc-cta-banner__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.svc-cta-banner__title {
+    font-family: 'Russo One', sans-serif;
+    font-size: 1.6rem;
+    color: #fff;
+    margin: 0 0 6px;
+}
+
+.svc-cta-banner__sub {
+    font-family: system-ui, sans-serif;
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.6);
+    margin: 0;
+}
+
+@media (max-width: 640px) {
+    .svc-cta-banner__inner { flex-direction: column; text-align: center; }
 }
 
 /* Dropdown styles */

@@ -14,11 +14,12 @@ class ServiceController extends Controller
      */
     public function show(string $alias)
     {
-        $service = Service::where('alias', $alias)->firstOrFail();
+        $service = Service::with(['mainImage', 'exampleImages'])
+            ->where('alias', $alias)
+            ->firstOrFail();
+
         view()->share('metaDescription', $service->short_description);
 
-        return view('services.show', [
-            'service' => $service,
-        ]);
+        return view('services.show', ['service' => $service]);
     }
 }
