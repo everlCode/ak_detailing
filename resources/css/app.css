@@ -451,65 +451,102 @@ body {
 
 .hero {
     position: relative;
-    height: 100vh; /* full viewport height */
+    min-height: 100vh;
     box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     color: #fff;
-    /* Градиент фона; картинку подключаем отдельно (в шаблоне) чтобы избежать проблем с путями в сборке */
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.65));
     background-size: cover;
     background-position: center;
-    padding-top: 100px; /* account for fixed header height */
+    padding-top: 100px;
     margin: 0;
 }
 
 .hero-content {
-    max-width: 960px;
+    max-width: 860px;
     padding: 40px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hero-badge {
+    display: inline-block;
+    background: rgba(218, 165, 32, 0.22);
+    border: 1px solid rgba(218, 165, 32, 0.55);
+    color: goldenrod;
+    font-size: 0.8rem;
+    font-family: 'Russo One', sans-serif;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 5px 16px;
+    border-radius: 30px;
+    margin-bottom: 20px;
 }
 
 .hero-title {
-    display: block;
-    margin: 0 0 12px 0;
-    line-height: 1;
-    font-size: 55px;
-    font-weight: 600;
-}
-
-.hero-title--big {
-    display: block;
-    font-size: 72px;
-    font-weight: 800;
-    letter-spacing: 2px;
-    font-family: 'Russo One', sans-serif;
-}
-
-.hero-title--small {
-    display: block;
-    font-size: 28px;
+    margin: 0 0 0 0;
+    line-height: 1.1;
+    font-size: 52px;
     font-weight: 700;
+    font-family: 'Russo One', sans-serif;
     letter-spacing: 1px;
-    margin-top: 6px;
+    text-shadow: 0 2px 16px rgba(0,0,0,0.35);
+}
+
+.hero-accent-line {
+    width: 64px;
+    height: 4px;
+    background: linear-gradient(90deg, goldenrod, #f5c842);
+    border-radius: 2px;
+    margin: 18px auto;
 }
 
 .hero-subtitle {
-    font-size: 23px;
-    font-style: italic;
-    margin-top: 12px;
-    margin-bottom: 20px;
-    color: #fff;
-    opacity: 0.95;
+    font-size: 1.15rem;
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    margin-bottom: 32px;
+    color: rgba(255,255,255,0.88);
+}
+
+.hero-cta {
+    display: inline-block;
+    padding: 16px 40px;
+    background: linear-gradient(135deg, #d4900a 0%, #f5c842 100%);
+    color: #1a1000;
+    font-weight: 700;
+    font-size: 1rem;
+    font-family: 'Russo One', sans-serif;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 8px 28px rgba(212,144,10,0.38);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    text-decoration: none;
 }
 
 .hero-cta:hover {
-    transform: scale(1.03);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 14px 36px rgba(212,144,10,0.48);
+    color: #1a1000;
+    text-decoration: none;
 }
 
-.hero button {
-    border-color: #fff;
+@media (max-width: 768px) {
+    .hero-title { font-size: 32px; }
+    .hero-subtitle { font-size: 1rem; }
+    .hero { min-height: 70vh; }
+}
+
+@media (max-width: 575px) {
+    .hero-title { font-size: 26px; }
+    .hero-subtitle { font-size: 0.95rem; }
 }
 
 /* Стили слайдера услуг (обновлённые для красивых стрелок, центрированной пагинации и увеличенной высоты) */
@@ -794,153 +831,235 @@ h2 {
     stroke: #fff !important;
 }
 
-/* Contact block styles */
+/* Section heading with accent line */
+.section-heading {
+    margin-bottom: 32px;
+}
+
+.section-heading h2 {
+    margin-bottom: 10px;
+}
+
+.section-heading__line {
+    display: block;
+    width: 52px;
+    height: 4px;
+    background: linear-gradient(90deg, goldenrod, #f5c842);
+    border-radius: 2px;
+}
+
+/* Contact block */
 .contact-block {
-    background: linear-gradient(180deg, #ffffff, #fbfbfd);
-    padding: 36px 0;
-    margin-top: 36px;
+    background: #f8f7f2;
+    padding: 56px 0;
+    margin-top: 0;
 }
 
 .contact-grid {
     display: flex;
-    gap: 28px;
+    gap: 48px;
     align-items: center;
 }
 
 .contact-image {
-    flex: 1 1 45%;
+    flex: 1 1 44%;
 }
 
 .contact-image img {
     width: 100%;
-    height: 320px;
+    height: 380px;
     object-fit: cover;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(2, 6, 23, 0.06);
+    border-radius: 16px;
+    box-shadow: 0 16px 48px rgba(2, 6, 23, 0.10);
 }
 
 .contact-info {
-    flex: 1 1 55%;
-    padding: 8px 12px; /* use a more neutral UI font here to avoid ultra-bold Russo One */
-    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    flex: 1 1 56%;
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
     color: #0f172a;
 }
 
 .contact-info h3 {
     margin-top: 0;
-    font-size: 1.6rem;
+    font-size: 1.75rem;
     margin-bottom: 8px;
+    font-family: 'Russo One', sans-serif;
     font-weight: 400;
 }
 
 .contact-sub {
     color: #6b7280;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
+    font-size: 0.97rem;
+    line-height: 1.6;
 }
 
 .contact-item {
     display: flex;
-    gap: 12px;
+    gap: 14px;
     align-items: center;
-    margin-bottom: 12px;
+    margin-bottom: 16px;
 }
 
-.contact-item .icon {
-    flex: 0 0 44px;
-    width: 44px;
-    height: 44px;
-    border-radius: 8px;
-    background: rgba(15, 23, 42, 0.06);
+/* Icon pill */
+.contact-item__icon {
+    flex: 0 0 46px;
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.contact-item .icon svg {
-    width: 20px;
-    height: 20px;
-    stroke: #0f172a;
+.contact-item__icon svg {
+    width: 22px;
+    height: 22px;
 }
 
-.contact-item .label {
-    font-size: 0.85rem;
-    color: #374151;
-    font-weight: 400;
+.contact-item__icon--address {
+    background: #fff3cd;
+    color: #92660a;
 }
 
-.contact-item .value {
+.contact-item__icon--phone {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.contact-item__icon--telegram {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.contact-item__icon--vk {
+    background: #ede9fe;
+    color: #5b21b6;
+}
+
+.contact-item__label {
+    font-size: 0.78rem;
+    color: #9ca3af;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+}
+
+.contact-item__value {
     font-size: 1rem;
-    font-weight: 400;
+    font-weight: 500;
     color: #0f172a;
 }
 
-.contact-item .value a {
+.contact-item__value a {
     color: inherit;
     text-decoration: none;
 }
 
+.contact-item__value a:hover {
+    color: #d4900a;
+    text-decoration: underline;
+    transform: none;
+}
+
+.contact-item__link {
+    font-size: 0.82rem;
+    color: #d4900a;
+    text-decoration: none;
+    margin-top: 2px;
+    display: inline-block;
+}
+
+.contact-item__link:hover {
+    text-decoration: underline;
+    color: #92660a;
+    transform: none;
+}
+
 .contact-actions {
-    margin-top: 18px;
+    margin-top: 24px;
     display: flex;
     gap: 12px;
+    flex-wrap: wrap;
+}
+
+.btn-primary {
+    padding: 13px 28px;
+    background: linear-gradient(135deg, #d4900a, #f5c842);
+    color: #1a1000;
+    font-weight: 700;
+    font-size: 0.9rem;
+    font-family: 'Russo One', sans-serif;
+    letter-spacing: 0.5px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    box-shadow: 0 6px 20px rgba(212,144,10,0.28);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+    text-transform: uppercase;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(212,144,10,0.38);
+    color: #1a1000;
+    text-decoration: none;
+}
+
+.btn-outline {
+    padding: 13px 28px;
+    background: transparent;
+    color: #0f172a;
+    font-weight: 700;
+    font-size: 0.9rem;
+    font-family: 'Russo One', sans-serif;
+    letter-spacing: 0.5px;
+    border: 2px solid #0f172a;
+    border-radius: 50px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease;
+    text-transform: uppercase;
+}
+
+.btn-outline:hover {
+    background: #0f172a;
+    color: #fff;
+    transform: translateY(-2px);
+    text-decoration: none;
 }
 
 @media (max-width: 768px) {
     .contact-grid {
         flex-direction: column;
+        gap: 28px;
     }
 
+    .contact-image { width: 100%; }
+
     .contact-image img {
-        height: 200px;
+        height: 220px;
     }
 
     .contact-info {
         text-align: center;
-    }
-
-    /* Сделаем список контактов компактным и центрированным, но с выровненными иконками */
-    .contact-info {
-        display: block;
+        width: 100%;
     }
 
     .contact-item {
-        display: grid;
-        grid-template-columns: 44px 1fr;
-        column-gap: 12px;
-        align-items: start;
-        width: 100%;
+        justify-content: flex-start;
         max-width: 420px;
-        margin: 0 auto 12px auto;
-    }
-
-    .contact-item .icon {
-        justify-self: start;
-        align-self: start;
-    }
-
-    .contact-item .label, .contact-item .value {
+        margin-left: auto;
+        margin-right: auto;
         text-align: left;
     }
 
     .contact-actions {
         justify-content: center;
-    }
-}
-
-/* Увеличим расстояние между секциями на десктопе и расположим заголовок над блоком */
-@media (min-width: 769px) {
-
-    .contact-block {
-        margin-top: 0;
-        padding-top: 32px;
-    }
-
-    .contact-info h3 {
-        position: static;
-        top: auto;
-        display: block;
-        margin-bottom: 12px;
-        padding: 0;
     }
 }
 

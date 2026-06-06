@@ -28,12 +28,14 @@ class HomeSettings extends Page
 
     public function mount(): void
     {
-        $logo      = Setting::get('logo');
-        $heroImage = Setting::get('hero_image');
+        $logo         = Setting::get('logo');
+        $heroImage    = Setting::get('hero_image');
+        $contactImage = Setting::get('contact_image');
 
         $this->form->fill([
-            'logo'       => $logo      ? [$logo]      : [],
-            'hero_image' => $heroImage ? [$heroImage] : [],
+            'logo'          => $logo         ? [$logo]         : [],
+            'hero_image'    => $heroImage    ? [$heroImage]    : [],
+            'contact_image' => $contactImage ? [$contactImage] : [],
         ]);
     }
 
@@ -55,6 +57,14 @@ class HomeSettings extends Page
 
             FileUpload::make('hero_image')
                 ->label('Фон главного баннера')
+                ->disk('public_root')
+                ->directory('images')
+                ->image()
+                ->imageEditor()
+                ->imagePreviewHeight('120'),
+
+            FileUpload::make('contact_image')
+                ->label('Картинка в блоке контактов')
                 ->disk('public_root')
                 ->directory('images')
                 ->image()
@@ -93,8 +103,12 @@ class HomeSettings extends Page
         $heroFiles = $data['hero_image'] ?? null;
         $heroImage = is_array($heroFiles) ? ($heroFiles[0] ?? null) : $heroFiles;
 
+        $contactFiles = $data['contact_image'] ?? null;
+        $contactImage = is_array($contactFiles) ? ($contactFiles[0] ?? null) : $contactFiles;
+
         Setting::set('logo', $logo);
         Setting::set('hero_image', $heroImage);
+        Setting::set('contact_image', $contactImage);
         cache()->forget('settings_all');
 
         Notification::make()

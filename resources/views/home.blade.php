@@ -4,14 +4,16 @@
 
 @section('content')
 
-    {{-- Баннер / Слайдер --}}
-    <section class="hero" style="background-image: url('{{ asset($settings['hero_image'] ?? 'images/car.webp') }}'), linear-gradient(180deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.65)); background-blend-mode: overlay;">
+    {{-- Баннер --}}
+    <section class="hero" style="background-image: url('{{ asset($settings['hero_image'] ?? 'images/car.webp') }}'), linear-gradient(160deg, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.45) 100%); background-blend-mode: overlay;">
         <div class="container hero-content">
+            <span class="hero-badge">Детейлинг в Кирове</span>
             <h1 class="hero-title">
-                Качественный детейлинг в Кирове
+                Качественный детейлинг<br>для вашего автомобиля
             </h1>
-            <p class="hero-subtitle">Выполним услугу быстро и качественно. Запишитесь прямо сейчас, мы свяжемся с вами и проконсультируем!</p>
-            <button type="button" class="hero-cta btn btn-primary" data-bs-toggle="modal" data-bs-target="#bookingModal" data-bs-service="">Записаться</button>
+            <div class="hero-accent-line"></div>
+            <p class="hero-subtitle">Химчистка, полировка, керамика — выполним быстро и качественно.<br>Запишитесь прямо сейчас!</p>
+            <button type="button" class="hero-cta" data-bs-toggle="modal" data-bs-target="#bookingModal" data-bs-service="">Записаться онлайн</button>
         </div>
     </section>
 
