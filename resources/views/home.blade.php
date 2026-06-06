@@ -20,6 +20,25 @@
     {{-- Подключаем partial со слайдером услуг --}}
     @include('partials.services-grid')
 
+    {{-- Примеры работ --}}
+    @if($portfolio->isNotEmpty())
+    <section class="portfolio-section">
+        <div class="container">
+            <div class="section-heading">
+                <h2>Примеры работ</h2>
+                <span class="section-heading__line"></span>
+            </div>
+            <div class="portfolio-grid">
+                @foreach($portfolio as $item)
+                    <div class="portfolio-item">
+                        <img src="{{ img($item->path, 480, 360) }}" alt="{{ $item->alt ?? 'Пример работы' }}" loading="lazy">
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+    @endif
+
     {{-- Подключаем partial с блоком контактов --}}
     @include('partials.contact-block', [
 

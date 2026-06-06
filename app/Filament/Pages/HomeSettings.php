@@ -2,6 +2,7 @@
 
 namespace App\Filament\Pages;
 
+use App\Models\Image;
 use App\Models\Setting;
 use BackedEnum;
 use Filament\Actions\Action;
@@ -11,6 +12,7 @@ use Filament\Pages\Page;
 use Filament\Schemas\Components\Actions;
 use Filament\Schemas\Components\EmbeddedSchema;
 use Filament\Schemas\Components\Form;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 
@@ -31,11 +33,13 @@ class HomeSettings extends Page
         $logo         = Setting::get('logo');
         $heroImage    = Setting::get('hero_image');
         $contactImage = Setting::get('contact_image');
+        $portfolio    = Image::where('type', 'portfolio')->orderBy('id')->pluck('path')->toArray();
 
         $this->form->fill([
-            'logo'          => $logo         ? [$logo]         : [],
-            'hero_image'    => $heroImage    ? [$heroImage]    : [],
-            'contact_image' => $contactImage ? [$contactImage] : [],
+            'logo'             => $logo         ? [$logo]         : [],
+            'hero_image'       => $heroImage    ? [$heroImage]    : [],
+            'contact_image'    => $contactImage ? [$contactImage] : [],
+            'portfolio_images' => $portfolio,
         ]);
     }
 
@@ -47,29 +51,46 @@ class HomeSettings extends Page
     public function form(Schema $schema): Schema
     {
         return $schema->components([
-            FileUpload::make('logo')
-                ->label('Логотип')
-                ->disk('public_root')
-                ->directory('images')
-                ->image()
-                ->imageEditor()
-                ->imagePreviewHeight('120'),
+            Section::make('Основное')
+                ->schema([
+                    FileUpload::make('logo')
+                        ->label('Логотип')
+                        ->disk('public_root')
+                        ->directory('images')
+                        ->image()
+                        ->imageEditor()
+                        ->imagePreviewHeight('120'),
 
-            FileUpload::make('hero_image')
-                ->label('Фон главного баннера')
-                ->disk('public_root')
-                ->directory('images')
-                ->image()
-                ->imageEditor()
-                ->imagePreviewHeight('120'),
+                    FileUpload::make('hero_image')
+                        ->label('Фон главного баннера')
+                        ->disk('public_root')
+                        ->directory('images')
+                        ->image()
+                        ->imageEditor()
+                        ->imagePreviewHeight('120'),
 
-            FileUpload::make('contact_image')
-                ->label('Картинка в блоке контактов')
-                ->disk('public_root')
-                ->directory('images')
-                ->image()
-                ->imageEditor()
-                ->imagePreviewHeight('120'),
+                    FileUpload::make('contact_image')
+                        ->label('Картинка в блоке контактов')
+                        ->disk('public_root')
+                        ->directory('images')
+                        ->image()
+                        ->imageEditor()
+                        ->imagePreviewHeight('120'),
+                ]),
+
+            Section::make('Примеры работ')
+                ->description('Фотографии отображаются в галерее на главной странице.')
+                ->schema([
+                    FileUpload::make('portfolio_images')
+                        ->label('Фотографии')
+                        ->disk('public_root')
+                        ->directory('images/portfolio')
+                        ->image()
+                        ->multiple()
+                        ->reorderable()
+                        ->imagePreviewHeight('120')
+                        ->panelLayout('grid'),
+                ]),
         ]);
     }
 
@@ -110,6 +131,15 @@ class HomeSettings extends Page
         Setting::set('hero_image', $heroImage);
         Setting::set('contact_image', $contactImage);
         cache()->forget('settings_all');
+
+        // Синхронизируем портфолио
+        Image::where('type', 'portfolio')->delete();
+        foreach ($data['portfolio_images'] ?? [] as $path) {
+            if ($path) {
+                Image::create(['path' => $path, 'type' => 'portfolio']);
+            }
+        }
+        cache()->forget('portfolio_images');
 
         Notification::make()
             ->title('Сохранено')

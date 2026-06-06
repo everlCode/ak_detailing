@@ -12,7 +12,7 @@
                 @endphp
                 <article class="svc-card">
                     <a href="{{ route('services.show', ['alias' => $service->alias]) }}" class="svc-card__img-wrap">
-                        <img src="{{ img($rawPath, 400, 280) }}" alt="{{ $imgAlt }}" class="svc-card__img">
+                        <img src="{{ img($rawPath, 640, 400) }}" alt="{{ $imgAlt }}" class="svc-card__img">
                         <div class="svc-card__img-overlay"></div>
                         @if(!empty($service->price) && $service->price > 0)
                             <span class="svc-card__price">от {{ number_format($service->price, 0, '.', ' ') }} ₽</span>

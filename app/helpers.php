@@ -45,7 +45,7 @@ function img(string $path, int $w, int $h): string
         $image = $manager
             ->read($publicPath)
             ->cover($w, $h)
-            ->toWebp(60);
+            ->toWebp(82);
 
         file_put_contents($cachedAbs, (string) $image);
 
