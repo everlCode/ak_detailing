@@ -1,37 +1,43 @@
-<section class="services-grid py-5">
+<section class="services-section">
     <div class="container">
-        <h2 class="mb-4">Наши услуги</h2>
-        <div class="row g-3">
+        <div class="section-heading">
+            <h2>Наши услуги</h2>
+            <span class="section-heading__line"></span>
+        </div>
+        <div class="services-grid">
             @forelse($services as $service)
-                <div class="col-12 col-sm-6 col-lg-4">
-                    <article class="card h-100 service-card">
-                        @php
-                            $rawPath = $service->mainImage && $service->mainImage->path ? $service->mainImage->path : 'images/car.jpg';
-                            $imgAlt = $service->mainImage && $service->mainImage->alt ? $service->mainImage->alt : $service->name;
-                        @endphp
-
-                        @if(!empty($rawPath))
-                            <img src="{{ img($rawPath, 324, 324) }}" class="card-img-top optimized-img" alt="{{ $imgAlt }}">
+                @php
+                    $rawPath = $service->mainImage?->path ?: 'images/car.jpg';
+                    $imgAlt  = $service->mainImage?->alt  ?: $service->name;
+                @endphp
+                <article class="svc-card">
+                    <a href="{{ route('services.show', ['alias' => $service->alias]) }}" class="svc-card__img-wrap">
+                        <img src="{{ img($rawPath, 400, 280) }}" alt="{{ $imgAlt }}" class="svc-card__img">
+                        <div class="svc-card__img-overlay"></div>
+                        @if(!empty($service->price) && $service->price > 0)
+                            <span class="svc-card__price">от {{ number_format($service->price, 0, '.', ' ') }} ₽</span>
                         @endif
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title">{{ $service->name }}</h5>
-
-                            @if(!empty($service->short_description))
-                                <p class="card-text">{{ $service->short_description }}</p>
-                            @endif
-
-                            <div class="mt-auto d-flex justify-content-center">
-                                <a href="{{ route('services.show', ['alias' => $service->alias]) }}" class="btn btn-outline-secondary custom btn-sm me-2">Подробнее</a>
-                                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#bookingModal" data-bs-service="{{ $service->id }}">Записаться</button>
-                            </div>
+                    </a>
+                    <div class="svc-card__body">
+                        <h3 class="svc-card__title">
+                            <a href="{{ route('services.show', ['alias' => $service->alias]) }}">{{ $service->name }}</a>
+                        </h3>
+                        @if(!empty($service->short_description))
+                            <p class="svc-card__text">{{ $service->short_description }}</p>
+                        @endif
+                        <div class="svc-card__actions">
+                            <a href="{{ route('services.show', ['alias' => $service->alias]) }}" class="svc-card__btn svc-card__btn--outline">Подробнее</a>
+                            <button type="button" class="svc-card__btn svc-card__btn--primary"
+                                    data-bs-toggle="modal" data-bs-target="#bookingModal"
+                                    data-bs-service="{{ $service->id }}">Записаться</button>
                         </div>
-                    </article>
-                </div>
+                    </div>
+                </article>
             @empty
-                <div class="col-12"><p>Услуг пока нет.</p></div>
+                <p>Услуг пока нет.</p>
             @endforelse
         </div>
     </div>
 </section>
 
-<div id="booking" style="position:relative; height:1px; width:1px; overflow:hidden; visibility:hidden;"></div>
+<div id="booking" style="position:relative;height:1px;width:1px;overflow:hidden;visibility:hidden;"></div>
