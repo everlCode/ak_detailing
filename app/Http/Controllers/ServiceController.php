@@ -18,7 +18,7 @@ class ServiceController extends Controller
             ->where('alias', $alias)
             ->firstOrFail();
 
-        view()->share('metaDescription', $service->short_description);
+        view()->share('metaDescription', $service->meta_description ?: $service->short_description);
 
         return view('services.show', ['service' => $service]);
     }

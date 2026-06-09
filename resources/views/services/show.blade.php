@@ -1,6 +1,14 @@
 @extends('layouts.app')
 
-@section('title', $service->name . ' в Кирове — A.K Detailing')
+@php
+    $metaTitle = $service->name . ' в Кирове';
+    if (!empty($service->price) && $service->price > 0) {
+        $metaTitle .= ' — от ' . number_format($service->price, 0, '.', ' ') . ' ₽';
+    }
+    $metaTitle .= ' | A.K Detailing';
+
+@endphp
+@section('title', $metaTitle)
 
 @push('head')
 <script type="application/ld+json">

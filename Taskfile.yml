@@ -35,7 +35,8 @@ tasks:
   npm:
     cmds:
       - npm run build
-      -
+  test:
+      - docker compose exec {{.CONTAINER_PHP}} php artisan test
   cache-clear:
     desc: Clear application cache inside the PHP container
     cmds:

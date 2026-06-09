@@ -11,10 +11,14 @@ services:
             - ./:/var/www
             - node_modules:/var/www/node_modules
             - ./docker/php/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
-        ports:
-            - "9000:9000"
         depends_on:
             - mysql
+        healthcheck:
+            test: ["CMD", "php-fpm", "-t"]
+            interval: 5s
+            timeout: 3s
+            retries: 10
+            start_period: 10s
 
     mysql:
         image: mysql:8.0
@@ -41,7 +45,8 @@ services:
             - ./:/var/www
             - ./docker/nginx/conf.d/:/etc/nginx/conf.d/
         depends_on:
-            - app
+            app:
+                condition: service_healthy
 
 volumes:
     mysqldata:

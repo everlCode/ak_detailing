@@ -15,6 +15,7 @@ class Service extends Model
         'alias',
         'description',
         'short_description',
+        'meta_description',
     ];
 
     /**

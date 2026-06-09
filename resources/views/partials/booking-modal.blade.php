@@ -241,6 +241,21 @@
               e.preventDefault();
             });
 
+            // autocomplete / autofill — браузер подставляет значение напрямую, минуя keydown
+            phoneInput.addEventListener('input', function () {
+              let raw = phoneInput.value.replace(/\D/g, '');
+              if (!raw) {
+                phoneInput.dataset.digits = '';
+                return;
+              }
+              // Убираем код страны (7 или 8) если он есть
+              if (raw.charAt(0) === '7' || raw.charAt(0) === '8') raw = raw.slice(1);
+              raw = raw.slice(0, 10);
+              phoneInput.dataset.digits = raw;
+              phoneInput.value = formatFromSubscriber(raw);
+              setCursorToEnd(phoneInput);
+            });
+
             // paste — вставляем цифры в позицию каретки
             phoneInput.addEventListener('paste', function (e) {
               e.preventDefault();

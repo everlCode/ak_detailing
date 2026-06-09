@@ -54,6 +54,17 @@ class ServiceForm
                                     ->columnSpanFull(),
                             ]),
 
+                        Tab::make('SEO')
+                            ->schema([
+                                Textarea::make('meta_description')
+                                    ->label('Meta Description')
+                                    ->placeholder('Краткое описание страницы для поисковиков (до 160 символов)')
+                                    ->maxLength(160)
+                                    ->rows(3)
+                                    ->helperText('Если не заполнено — используется краткое описание услуги.')
+                                    ->columnSpanFull(),
+                            ]),
+
                         Tab::make('Примеры работ')
                             ->schema([
                                 Repeater::make('exampleImages')
