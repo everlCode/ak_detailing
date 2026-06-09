@@ -7,6 +7,7 @@
     }
     $metaTitle .= ' | A.K Detailing';
 
+    $metaDescription = $service->meta_description ?: $service->short_description;
 @endphp
 @section('title', $metaTitle)
 
