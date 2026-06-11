@@ -37,16 +37,26 @@
         <div class="portfolio-swiper-wrap">
             <div class="swiper portfolio-swiper">
                 <div class="swiper-wrapper">
-                    @foreach($portfolio as $item)
+                    @foreach($portfolio as $case)
                     <div class="swiper-slide portfolio-slide">
-                        <div class="portfolio-slide__inner">
+                        <a href="{{ route('portfolio.show', $case->slug) }}" class="portfolio-slide__inner">
+                            @if($case->mainImage)
                             <img
-                                src="{{ img($item->path, 520, 380) }}"
-                                alt="{{ $item->alt ?? 'Пример работы' }}"
+                                src="{{ img($case->mainImage->path, 520, 380) }}"
+                                alt="{{ $case->mainImage->alt ?: $case->title }}"
                                 loading="lazy"
                                 class="portfolio-slide__img"
                             >
-                        </div>
+                            @else
+                            <div class="portfolio-slide__img" style="background:#1e293b;"></div>
+                            @endif
+                            <div class="portfolio-slide__caption">
+                                <span class="portfolio-slide__caption-car">{{ $case->car_make }} {{ $case->car_model }}</span>
+                                @if($case->service)
+                                <span class="portfolio-slide__caption-service">{{ $case->service->name }}</span>
+                                @endif
+                            </div>
+                        </a>
                     </div>
                     @endforeach
                 </div>
@@ -64,6 +74,9 @@
 
                 <div class="portfolio-pagination swiper-pagination"></div>
             </div>
+        </div>
+        <div class="container" style="text-align:center;padding-top:24px;">
+            <a href="{{ route('portfolio.index') }}" class="portfolio-all-link">Все работы →</a>
         </div>
     </section>
     @endif

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\PortfolioCase;
 use App\Models\Service;
 
 class SitemapController extends Controller
@@ -11,20 +12,30 @@ class SitemapController extends Controller
     {
         $base = rtrim(config('app.url') ?: url('/'), '/');
 
-        $services = Service::select('alias', 'updated_at')->get();
+        $services  = Service::select('alias', 'updated_at')->get();
+        $cases     = PortfolioCase::select('slug', 'updated_at')->get();
 
         $items = [];
-        // Главная и контакты
         $now = now()->toAtomString();
         $items[] = ['loc' => $base . '/', 'lastmod' => $now, 'changefreq' => 'daily', 'priority' => '1.0'];
         $items[] = ['loc' => $base . '/contacts', 'lastmod' => $now, 'changefreq' => 'monthly', 'priority' => '0.6'];
+        $items[] = ['loc' => $base . '/portfolio', 'lastmod' => $now, 'changefreq' => 'weekly', 'priority' => '0.8'];
 
         foreach ($services as $s) {
             $items[] = [
-                'loc' => $base . '/services/' . $s->alias,
-                'lastmod' => optional($s->updated_at)->toAtomString() ?: $now,
+                'loc'        => $base . '/services/' . $s->alias,
+                'lastmod'    => optional($s->updated_at)->toAtomString() ?: $now,
                 'changefreq' => 'monthly',
-                'priority' => '0.8'
+                'priority'   => '0.8',
+            ];
+        }
+
+        foreach ($cases as $c) {
+            $items[] = [
+                'loc'        => $base . '/portfolio/' . $c->slug,
+                'lastmod'    => optional($c->updated_at)->toAtomString() ?: $now,
+                'changefreq' => 'monthly',
+                'priority'   => '0.7',
             ];
         }
 

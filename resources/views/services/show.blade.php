@@ -6,19 +6,23 @@
         $metaTitle .= ' — от ' . number_format($service->price, 0, '.', ' ') . ' ₽';
     }
     $metaTitle .= ' | A.K Detailing';
-
-    $metaDescription = $service->meta_description ?: $service->short_description;
 @endphp
 @section('title', $metaTitle)
 
 @push('head')
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 <script type="application/ld+json">
 {
     "@context": "https://schema.org",
     "@type": "Service",
     "name": "{{ $service->name }}",
-    "description": "{{ $service->short_description }}",
-    "url": "{{ url()->current() }}",
+    "description": "{{ $service->meta_description ?: $service->short_description ?: $service->name . ' в Кирове — A.K Detailing' }}",
+    "url": "{{ url()->current() }}"@if($service->mainImage?->path),
+    "image": "{{ asset($service->mainImage->path) }}"@endif,
+    "areaServed": {
+        "@type": "City",
+        "name": "Киров"
+    },
     "provider": {
         "@type": "AutoBodyShop",
         "@id": "{{ config('app.url') }}#organization",
@@ -30,7 +34,6 @@
         "price": "{{ (int)$service->price }}",
         "availability": "https://schema.org/InStock"
     }@endif
-
 }
 </script>
 <script type="application/ld+json">
@@ -70,7 +73,7 @@
                 <span>/</span>
                 <span>{{ $service->name }}</span>
             </nav>
-            <h1 class="svc-hero__title">{{ $service->name }}</h1>
+            <h1 class="svc-hero__title">{{ $service->name }} в Кирове</h1>
             @if(!empty($service->short_description))
                 <p class="svc-hero__sub">{{ $service->short_description }}</p>
             @endif
@@ -92,7 +95,7 @@
         <div class="container svc-body__grid">
             <div class="svc-body__description">
                 <div class="section-heading">
-                    <h2>Об услуге</h2>
+                    <h2>{{ $service->name }}: что входит в услугу</h2>
                     <span class="section-heading__line"></span>
                 </div>
                 <div class="svc-description-content">
@@ -145,6 +148,62 @@
     </section>
     @endif
 
+    {{-- Слайдер кейсов портфолио --}}
+    @if($cases->isNotEmpty())
+    <section class="portfolio-section">
+        <div class="container">
+            <div class="section-heading">
+                <h2>Наши работы — {{ $service->name }}</h2>
+                <span class="section-heading__line"></span>
+            </div>
+        </div>
+
+        <div class="portfolio-swiper-wrap">
+            <div class="swiper svc-portfolio-swiper">
+                <div class="swiper-wrapper">
+                    @foreach($cases as $case)
+                    <div class="swiper-slide portfolio-slide">
+                        <a href="{{ route('portfolio.show', $case->slug) }}" class="portfolio-slide__inner">
+                            @if($case->mainImage)
+                            <img
+                                src="{{ img($case->mainImage->path, 520, 380) }}"
+                                alt="{{ $case->mainImage->alt ?: $case->title }}"
+                                loading="lazy"
+                                class="portfolio-slide__img"
+                            >
+                            @else
+                            <div class="portfolio-slide__img" style="background:#1e293b;"></div>
+                            @endif
+                            <div class="portfolio-slide__caption">
+                                <span class="portfolio-slide__caption-car">{{ $case->car_make }} {{ $case->car_model }}</span>
+                                <span class="portfolio-slide__caption-service">{{ $case->title }}</span>
+                            </div>
+                        </a>
+                    </div>
+                    @endforeach
+                </div>
+
+                <button class="portfolio-nav portfolio-nav--prev" aria-label="Назад">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path d="M15 18l-6-6 6-6"/>
+                    </svg>
+                </button>
+                <button class="portfolio-nav portfolio-nav--next" aria-label="Вперёд">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path d="M9 18l6-6-6-6"/>
+                    </svg>
+                </button>
+
+                <div class="svc-portfolio-pagination swiper-pagination"></div>
+            </div>
+        </div>
+
+        <div class="container" style="text-align:center;padding-top:24px;">
+            <a href="{{ route('portfolio.index') }}" class="portfolio-all-link">Все работы →</a>
+        </div>
+    </section>
+    @endif
+
     {{-- CTA-баннер --}}
     <section class="svc-cta-banner">
         <div class="container svc-cta-banner__inner">
@@ -163,3 +222,33 @@
     @include('partials.contact-block')
 
 @endsection
+
+@if($cases->isNotEmpty())
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        new Swiper('.svc-portfolio-swiper', {
+            slidesPerView: 1,
+            spaceBetween: 12,
+            loop: {{ $cases->count() > 1 ? 'true' : 'false' }},
+            grabCursor: true,
+            autoplay: { delay: 4000, disableOnInteraction: false, pauseOnMouseEnter: true },
+            navigation: {
+                nextEl: '.portfolio-nav--next',
+                prevEl: '.portfolio-nav--prev',
+            },
+            pagination: {
+                el: '.svc-portfolio-pagination',
+                clickable: true,
+            },
+            breakpoints: {
+                480:  { slidesPerView: 2, spaceBetween: 12 },
+                768:  { slidesPerView: 3, spaceBetween: 16 },
+                1024: { slidesPerView: 4, spaceBetween: 16 },
+            },
+        });
+    });
+</script>
+@endpush
+@endif

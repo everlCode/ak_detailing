@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     @php
         $pageDescription = $metaDescription ?? 'Профессиональный детейлинг автомобилей в Кирове. Полировка, нанокерамика, химчистка салона, бронирование плёнкой — A.K Detailing.';
-        $ogImage         = !empty($settings['hero_image']) ? asset($settings['hero_image']) : asset('images/og-default.jpg');
+        $ogImage         = $ogImage ?? (!empty($settings['hero_image']) ? asset($settings['hero_image']) : asset('images/og-default.jpg'));
         $canonicalUrl    = url()->current();
     @endphp
 

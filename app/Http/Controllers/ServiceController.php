@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PortfolioCase;
 use App\Models\Service;
 
 class ServiceController extends Controller
@@ -18,8 +19,22 @@ class ServiceController extends Controller
             ->where('alias', $alias)
             ->firstOrFail();
 
-        view()->share('metaDescription', $service->meta_description ?: $service->short_description);
+        $metaDesc = $service->meta_description
+            ?: $service->short_description
+            ?: "{$service->name} в Кирове — профессиональный детейлинг от A.K Detailing. Запись онлайн.";
 
-        return view('services.show', ['service' => $service]);
+        view()->share('metaDescription', $metaDesc);
+
+        if ($service->mainImage?->path) {
+            view()->share('ogImage', asset($service->mainImage->path));
+        }
+
+        $cases = PortfolioCase::with('mainImage')
+            ->where('service_id', $service->id)
+            ->orderByDesc('views')
+            ->orderByDesc('id')
+            ->get();
+
+        return view('services.show', ['service' => $service, 'cases' => $cases]);
     }
 }

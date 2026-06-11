@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BookingRequestController;
 use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\ImageUploadController;
+use App\Http\Controllers\PortfolioCaseController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,9 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/services/{alias}', [ServiceController::class, 'show'])->name('services.show');
 
 Route::get('/contacts', [ContactsController::class, 'index'])->name('contacts');
+
+Route::get('/portfolio', [PortfolioCaseController::class, 'index'])->name('portfolio.index');
+Route::get('/portfolio/{slug}', [PortfolioCaseController::class, 'show'])->name('portfolio.show');
 
 Route::post('/booking', [BookingRequestController::class, 'store'])->name('booking.store');
 
