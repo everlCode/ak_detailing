@@ -95,6 +95,7 @@ class PortfolioCaseForm
                                         TextInput::make('alt')
                                             ->label('Alt текст')
                                             ->placeholder('Например: Полировка BMW E46 — результат')
+                                            ->required()
                                             ->columnSpanFull(),
                                     ])
                                     ->addActionLabel('Добавить фото')
