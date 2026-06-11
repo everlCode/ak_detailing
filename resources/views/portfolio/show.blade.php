@@ -1,10 +1,7 @@
 @extends('layouts.app')
 
 @php
-    $metaTitle = $case->title . ' — ' . $case->car_make . ' ' . $case->car_model;
-    if ($case->car_year) $metaTitle .= ' ' . $case->car_year;
-    $metaTitle .= ' | A.K Detailing';
-
+    $metaTitle = $case->title . ' | A.K Detailing';
     $firstImage = $case->images->first();
 @endphp
 @section('title', $metaTitle)
@@ -100,10 +97,6 @@
                 </a>
             </div>
             @endif
-            <div class="portfolio-case-meta__item">
-                <span class="portfolio-case-meta__label">Просмотры</span>
-                <span class="portfolio-case-meta__value">{{ number_format($case->views, 0, '.', ' ') }}</span>
-            </div>
         </div>
 
         @if($case->description)

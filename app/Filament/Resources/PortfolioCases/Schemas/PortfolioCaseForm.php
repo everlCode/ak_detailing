@@ -25,37 +25,44 @@ class PortfolioCaseForm
                     ->tabs([
                         Tab::make('Основное')
                             ->schema([
-                                TextInput::make('title')
-                                    ->label('Заголовок')
-                                    ->required()
-                                    ->columnSpanFull()
-                                    ->live(onBlur: true)
-                                    ->afterStateUpdated(fn ($state, callable $set, $record) =>
-                                        $record === null
-                                            ? $set('slug', Str::slug($state))
-                                            : null
-                                    ),
-
-                                TextInput::make('slug')
-                                    ->label('Slug (URL)')
-                                    ->required()
-                                    ->unique(ignoreRecord: true)
-                                    ->helperText('Например: polirovka-bmw-e46-2003')
-                                    ->columnSpanFull(),
-
                                 TextInput::make('car_make')
                                     ->label('Марка авто')
-                                    ->required(),
+                                    ->required()
+                                    ->live(onBlur: true)
+                                    ->afterStateUpdated(function (callable $set, callable $get, $record) {
+                                        if ($record !== null) return;
+                                        $slug = Str::slug(collect([$get('car_make'), $get('car_model'), $get('car_year')])->filter()->implode(' '));
+                                        if ($slug) $set('slug', $slug);
+                                    }),
 
                                 TextInput::make('car_model')
                                     ->label('Модель авто')
-                                    ->required(),
+                                    ->required()
+                                    ->live(onBlur: true)
+                                    ->afterStateUpdated(function (callable $set, callable $get, $record) {
+                                        if ($record !== null) return;
+                                        $slug = Str::slug(collect([$get('car_make'), $get('car_model'), $get('car_year')])->filter()->implode(' '));
+                                        if ($slug) $set('slug', $slug);
+                                    }),
 
                                 TextInput::make('car_year')
                                     ->label('Год выпуска')
                                     ->numeric()
                                     ->minValue(1990)
-                                    ->maxValue((int) date('Y')),
+                                    ->maxValue((int) date('Y'))
+                                    ->live(onBlur: true)
+                                    ->afterStateUpdated(function (callable $set, callable $get, $record) {
+                                        if ($record !== null) return;
+                                        $slug = Str::slug(collect([$get('car_make'), $get('car_model'), $get('car_year')])->filter()->implode(' '));
+                                        if ($slug) $set('slug', $slug);
+                                    }),
+
+                                TextInput::make('slug')
+                                    ->label('Slug (URL)')
+                                    ->required()
+                                    ->unique(ignoreRecord: true)
+                                    ->helperText('Например: bmw-m3-2019-polirovka')
+                                    ->columnSpanFull(),
 
                                 Select::make('service_id')
                                     ->label('Услуга')

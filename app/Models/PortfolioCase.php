@@ -8,7 +8,6 @@ class PortfolioCase extends Model
 {
     protected $fillable = [
         'slug',
-        'title',
         'car_make',
         'car_model',
         'car_year',
@@ -17,6 +16,16 @@ class PortfolioCase extends Model
         'meta_description',
         'views',
     ];
+
+    public function getTitleAttribute(): string
+    {
+        $parts = array_filter([$this->car_make, $this->car_model, $this->car_year ? (string) $this->car_year : null]);
+        $title = implode(' ', $parts);
+        if ($this->relationLoaded('service') && $this->service) {
+            $title .= ' — ' . $this->service->name;
+        }
+        return $title;
+    }
 
     protected $casts = [
         'views' => 'integer',

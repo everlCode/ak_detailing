@@ -15,9 +15,6 @@ class PortfolioCasesTable
     {
         return $table
             ->columns([
-                TextColumn::make('title')
-                    ->label('Заголовок')
-                    ->searchable(),
                 TextColumn::make('car_make')
                     ->label('Марка')
                     ->searchable(),
