@@ -51,5 +51,6 @@ class EditPortfolioCase extends EditRecord
         }
 
         cache()->forget('portfolio_cases_index');
+        cache()->forget('portfolio_cases_slider');
     }
 }

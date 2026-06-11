@@ -14,6 +14,7 @@ class CreatePortfolioCase extends CreateRecord
     {
         $this->syncImages($this->form->getState());
         cache()->forget('portfolio_cases_index');
+        cache()->forget('portfolio_cases_slider');
     }
 
     protected function syncImages(array $formState): void
