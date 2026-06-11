@@ -4,11 +4,25 @@ namespace App\Filament\Resources\PortfolioCases\Pages;
 
 use App\Filament\Resources\PortfolioCases\PortfolioCaseResource;
 use App\Models\Image;
+use App\Models\PortfolioCase;
 use Filament\Resources\Pages\CreateRecord;
+use Illuminate\Support\Str;
 
 class CreatePortfolioCase extends CreateRecord
 {
     protected static string $resource = PortfolioCaseResource::class;
+
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        $base = Str::slug(collect([$data['car_make'] ?? '', $data['car_model'] ?? '', $data['car_year'] ?? ''])->filter()->implode(' '));
+        $slug = $base;
+        $i = 1;
+        while (PortfolioCase::where('slug', $slug)->exists()) {
+            $slug = $base . '-' . $i++;
+        }
+        $data['slug'] = $slug;
+        return $data;
+    }
 
     protected function afterCreate(): void
     {

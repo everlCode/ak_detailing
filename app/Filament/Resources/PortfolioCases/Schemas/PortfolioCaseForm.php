@@ -12,7 +12,6 @@ use Filament\Forms\Components\Textarea;
 use Filament\Schemas\Components\Tabs;
 use Filament\Schemas\Components\Tabs\Tab;
 use Filament\Schemas\Schema;
-use Illuminate\Support\Str;
 
 class PortfolioCaseForm
 {
@@ -27,42 +26,17 @@ class PortfolioCaseForm
                             ->schema([
                                 TextInput::make('car_make')
                                     ->label('Марка авто')
-                                    ->required()
-                                    ->live(onBlur: true)
-                                    ->afterStateUpdated(function (callable $set, callable $get, $record) {
-                                        if ($record !== null) return;
-                                        $slug = Str::slug(collect([$get('car_make'), $get('car_model'), $get('car_year')])->filter()->implode(' '));
-                                        if ($slug) $set('slug', $slug);
-                                    }),
+                                    ->required(),
 
                                 TextInput::make('car_model')
                                     ->label('Модель авто')
-                                    ->required()
-                                    ->live(onBlur: true)
-                                    ->afterStateUpdated(function (callable $set, callable $get, $record) {
-                                        if ($record !== null) return;
-                                        $slug = Str::slug(collect([$get('car_make'), $get('car_model'), $get('car_year')])->filter()->implode(' '));
-                                        if ($slug) $set('slug', $slug);
-                                    }),
+                                    ->required(),
 
                                 TextInput::make('car_year')
                                     ->label('Год выпуска')
                                     ->numeric()
                                     ->minValue(1990)
-                                    ->maxValue((int) date('Y'))
-                                    ->live(onBlur: true)
-                                    ->afterStateUpdated(function (callable $set, callable $get, $record) {
-                                        if ($record !== null) return;
-                                        $slug = Str::slug(collect([$get('car_make'), $get('car_model'), $get('car_year')])->filter()->implode(' '));
-                                        if ($slug) $set('slug', $slug);
-                                    }),
-
-                                TextInput::make('slug')
-                                    ->label('Slug (URL)')
-                                    ->required()
-                                    ->unique(ignoreRecord: true)
-                                    ->helperText('Например: bmw-m3-2019-polirovka')
-                                    ->columnSpanFull(),
+                                    ->maxValue((int) date('Y')),
 
                                 Select::make('service_id')
                                     ->label('Услуга')
