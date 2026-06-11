@@ -14,7 +14,7 @@ class CreatePortfolioCase extends CreateRecord
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
-        $base = Str::slug(collect([$data['car_make'] ?? '', $data['car_model'] ?? '', $data['car_year'] ?? ''])->filter()->implode(' '));
+        $base = Str::slug(collect([$data['car_make'] ?? '', $data['car_model'] ?? ''])->filter()->implode(' '));
         $slug = $base;
         $i = 1;
         while (PortfolioCase::where('slug', $slug)->exists()) {

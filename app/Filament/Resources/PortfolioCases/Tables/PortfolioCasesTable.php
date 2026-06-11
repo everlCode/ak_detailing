@@ -21,10 +21,7 @@ class PortfolioCasesTable
                 TextColumn::make('car_model')
                     ->label('Модель')
                     ->searchable(),
-                TextColumn::make('car_year')
-                    ->label('Год')
-                    ->sortable(),
-                TextColumn::make('service.name')
+TextColumn::make('service.name')
                     ->label('Услуга')
                     ->placeholder('—'),
                 TextColumn::make('views')

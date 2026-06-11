@@ -66,7 +66,7 @@
                     @endif
                 </div>
                 <div class="portfolio-case-card__body">
-                    <span class="portfolio-case-card__car">{{ $case->car_make }} {{ $case->car_model }}@if($case->car_year), {{ $case->car_year }}@endif</span>
+                    <span class="portfolio-case-card__car">{{ $case->car_make }} {{ $case->car_model }}</span>
                     <h2 class="portfolio-case-card__title">{{ $case->title }}</h2>
                     @if($case->service)
                         <span class="portfolio-case-card__service">{{ $case->service->name }}</span>

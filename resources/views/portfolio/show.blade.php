@@ -69,7 +69,7 @@
         </nav>
         <h1 class="svc-hero__title">{{ $case->title }}</h1>
         <p class="svc-hero__sub">
-            {{ $case->car_make }} {{ $case->car_model }}@if($case->car_year), {{ $case->car_year }} г.@endif
+            {{ $case->car_make }} {{ $case->car_model }}
             @if($case->service) — {{ $case->service->name }}@endif
         </p>
         <div class="svc-hero__actions">
@@ -87,7 +87,7 @@
         <div class="portfolio-case-meta">
             <div class="portfolio-case-meta__item">
                 <span class="portfolio-case-meta__label">Марка и модель</span>
-                <span class="portfolio-case-meta__value">{{ $case->car_make }} {{ $case->car_model }}@if($case->car_year) {{ $case->car_year }}@endif</span>
+                <span class="portfolio-case-meta__value">{{ $case->car_make }} {{ $case->car_model }}</span>
             </div>
             @if($case->service)
             <div class="portfolio-case-meta__item">

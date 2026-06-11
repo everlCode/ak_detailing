@@ -10,7 +10,7 @@ class PortfolioCase extends Model
         'slug',
         'car_make',
         'car_model',
-        'car_year',
+
         'service_id',
         'description',
         'meta_description',
@@ -19,7 +19,7 @@ class PortfolioCase extends Model
 
     public function getTitleAttribute(): string
     {
-        $parts = array_filter([$this->car_make, $this->car_model, $this->car_year ? (string) $this->car_year : null]);
+        $parts = array_filter([$this->car_make, $this->car_model]);
         $title = implode(' ', $parts);
         if ($this->relationLoaded('service') && $this->service) {
             $title .= ' — ' . $this->service->name;

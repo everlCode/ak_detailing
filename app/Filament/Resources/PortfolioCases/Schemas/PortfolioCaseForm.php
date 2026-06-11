@@ -32,13 +32,7 @@ class PortfolioCaseForm
                                     ->label('Модель авто')
                                     ->required(),
 
-                                TextInput::make('car_year')
-                                    ->label('Год выпуска')
-                                    ->numeric()
-                                    ->minValue(1990)
-                                    ->maxValue((int) date('Y')),
-
-                                Select::make('service_id')
+Select::make('service_id')
                                     ->label('Услуга')
                                     ->options(Service::pluck('name', 'id'))
                                     ->searchable()
