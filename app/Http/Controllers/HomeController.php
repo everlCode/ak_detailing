@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Image;
+use App\Models\PortfolioCase;
 use App\Models\Service;
 use App\Models\Setting;
 use Illuminate\Support\Facades\Cache;
@@ -25,8 +25,11 @@ class HomeController extends Controller
                 ->mapWithKeys(fn ($item) => [$item->key => $item->value])
                 ->toArray();
         });
-        $portfolio = Cache::remember('portfolio_images', 60 * 60 * 24, function () {
-            return Image::where('type', 'portfolio')->orderBy('id')->get();
+        $portfolio = Cache::remember('portfolio_cases_slider', now()->addHours(6), function () {
+            return PortfolioCase::with(['mainImage', 'service'])
+                ->orderByDesc('views')
+                ->orderByDesc('id')
+                ->get();
         });
 
         view()->share('metaDescription', 'Профессиональные детейлинг услуги в Кирове: химчистка салона, полировка кузова, керамика. Район Чистых прудов. Запись онлайн.');
