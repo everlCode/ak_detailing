@@ -81,6 +81,33 @@
     </section>
     @endif
 
+    {{-- FAQ --}}
+    @if($faqs->isNotEmpty())
+    <section class="faq-section">
+        <div class="container">
+            <div class="section-heading">
+                <h2>Частые вопросы</h2>
+                <span class="section-heading__line"></span>
+            </div>
+            <div class="faq-list" itemscope itemtype="https://schema.org/FAQPage">
+                @foreach($faqs as $faq)
+                <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                    <button class="faq-question" aria-expanded="false" type="button">
+                        <span itemprop="name">{{ $faq->question }}</span>
+                        <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                            <path d="M6 9l6 6 6-6"/>
+                        </svg>
+                    </button>
+                    <div class="faq-answer" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                        <p itemprop="text">{{ $faq->answer }}</p>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+    @endif
+
     {{-- Контакты --}}
     @include('partials.contact-block', ['settings' => $settings])
 
@@ -96,6 +123,22 @@
 
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+    document.querySelectorAll('.faq-question').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var item = btn.closest('.faq-item');
+            var expanded = btn.getAttribute('aria-expanded') === 'true';
+            document.querySelectorAll('.faq-item.is-open').forEach(function(el) {
+                el.classList.remove('is-open');
+                el.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+            });
+            if (!expanded) {
+                item.classList.add('is-open');
+                btn.setAttribute('aria-expanded', 'true');
+            }
+        });
+    });
+</script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         new Swiper('.portfolio-swiper', {

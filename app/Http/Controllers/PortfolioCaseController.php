@@ -25,8 +25,6 @@ class PortfolioCaseController extends Controller
         $case->incrementQuietly('views');
         cache()->forget('portfolio_cases_slider');
 
-        view()->share('metaDescription', $case->meta_description ?: "{$case->car_make} {$case->car_model} — {$case->service?->name}. A.K Detailing Киров.");
-
         return view('portfolio.show', ['case' => $case]);
     }
 }

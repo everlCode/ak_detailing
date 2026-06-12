@@ -3,6 +3,19 @@
 @php
     $metaTitle = $case->title . ' | A.K Detailing';
     $firstImage = $case->images->first();
+
+    if ($case->meta_description) {
+        $metaDescription = $case->meta_description;
+    } else {
+        $metaDescription = $case->car_make . ' ' . $case->car_model;
+        if ($case->service) $metaDescription .= ' — ' . $case->service->name;
+        if ($case->description) {
+            $text = trim(preg_replace('/\s+/', ' ', strip_tags($case->description)));
+            if ($text) $metaDescription .= '. ' . \Illuminate\Support\Str::limit($text, 100, '');
+        }
+        $metaDescription = rtrim($metaDescription, ' .,') . '. A.K Detailing Киров.';
+    }
+    view()->share('metaDescription', $metaDescription);
 @endphp
 @section('title', $metaTitle)
 

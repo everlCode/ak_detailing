@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Faq;
 use App\Models\PortfolioCase;
 use App\Models\Service;
 use App\Models\Setting;
@@ -32,8 +33,12 @@ class HomeController extends Controller
                 ->get();
         });
 
+        $faqs = Cache::remember('faqs_active', now()->addHours(6), function () {
+            return Faq::active()->get();
+        });
+
         view()->share('metaDescription', 'Профессиональные детейлинг услуги в Кирове: химчистка салона, полировка кузова, керамика. Район Чистых прудов. Запись онлайн.');
 
-        return view('home', ['services' => $services, 'settings' => $settings, 'portfolio' => $portfolio]);
+        return view('home', ['services' => $services, 'settings' => $settings, 'portfolio' => $portfolio, 'faqs' => $faqs]);
     }
 }
